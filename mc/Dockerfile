@@ -2,7 +2,8 @@ FROM ubuntu:16.04
 
 RUN apt-get update && apt-get install -y \
   vim \
-  wget 
+  wget \
+  net-tools
 
 WORKDIR /tmp
 RUN wget https://www.multichain.com/download/multichain-1.0.6.tar.gz
