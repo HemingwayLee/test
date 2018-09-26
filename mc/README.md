@@ -39,7 +39,8 @@ multichain-cli chain1 getinfo
 ```
 
 Send JSON RPC to the multichain
-
+![auth](https://user-images.githubusercontent.com/8428372/46090268-5279f600-c1eb-11e8-99ef-1494b9f77653.png)
+![body](https://user-images.githubusercontent.com/8428372/46090269-5279f600-c1eb-11e8-95a9-4f23698a242b.png)
 
 Restart a chain
 ```
