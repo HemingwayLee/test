@@ -12,16 +12,14 @@ multichain-util create chain1
 
 Change the default port number in `vim ~/.multichain/chain1/params.dat`
 ```
-default-network-port = 4789
-default-rpc-port = 4788
+default-network-port = 7435
+default-rpc-port = 7434
 ```
 
 Allow access in `~/.multichain/multichain.conf`
 ```
 rpcallowip=0.0.0.0/0
 rpcport=7434
-rpcuser=test
-rpcpassword=test
 ```
 
 Run a chain
@@ -29,10 +27,19 @@ Run a chain
 multichaind chain1 -daemon
 ```
 
+The rpcuser and rpcpassword will be generated automatically in `~/.multichain/chain1/multichain.conf`
+```
+rpcuser=multichainrpc
+rpcpassword=j3536YzAeJMXRZXLkt94bqmeWYWaKGNjETtDwAN2w6T
+```
+
 Check information
 ```
 multichain-cli chain1 getinfo
 ```
+
+Send JSON RPC to the multichain
+
 
 Restart a chain
 ```
