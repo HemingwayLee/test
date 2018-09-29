@@ -1,8 +1,12 @@
 # Cheatsheet
 
-## ssh (both GoogleCloud and AWS)
+## ssh (<user> is `your_user_name` in GoogleCloud and it is `ubuntu` in AWS)
 ```
-ssh -i ~/.ssh/<my.pem> ubuntu@<ip>
+ssh -i ~/.ssh/<my.pem> <user>@<ip>
+```
+
+```
+ssh -F /dev/null <user>@<ip>
 ```
 
 * For GoogleCloud, we need to set `VPC networks` before creating VM (Compute Engine)
