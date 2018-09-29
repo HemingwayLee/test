@@ -5,7 +5,7 @@
 ssh -i ~/.ssh/<my.pem> ubuntu@<ip>
 ```
 
-* For GoogleCloud
+* For GoogleCloud, we need to set `VPC networks` before creating VM (Compute Engine)
 1. ssh via Google web console
 2. Copy the `key.pub` file contents
 3. Append the contents to `~/.ssh/authorized_keys` file
