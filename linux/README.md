@@ -13,6 +13,11 @@ tmux kill-session -t runserver
 tmux new-session -d -s runserver "python3 manage.py runserver 0.0.0.0:8000"
 ```
 
+## git
+```
+git log --pretty=oneline
+```
+
 ## standard output
 ```
 history > h.txt  # override
