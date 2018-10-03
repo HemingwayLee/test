@@ -28,9 +28,20 @@ tmux new-session -d -s runserver "python3 manage.py runserver 0.0.0.0:8000"
 ```
 
 ## git
+* check commits and check what this commit was changing
+
 ```
 git log --pretty=oneline
-git diff COMMIT^!
+git diff COMMIT_HASH_CODE^!
+```
+
+* Create a feature branch
+
+```
+git checkout -b FEATURE_BRANCH_NAME
+git add .
+git commit -m "My branch is ready"
+git push origin FEATURE_BRANCH_NAME
 ```
 
 ## standard output
