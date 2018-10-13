@@ -70,3 +70,23 @@ Don't change python3 to default in linux, some programs are depending on python2
 
 https://stackoverflow.com/questions/21365714/nodejs-error-installing-with-npm
 
+## export
+
+* Change environment variable
+
+```
+$ export abc=10
+$ echo $abc
+10
+```
+
+* Add variables `/home/mytest` to `PATH`
+
+```
+export PATH=$PATH:/home/mytest
+```
+
+* List all environment variables
+```
+export -p
+```
