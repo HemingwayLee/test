@@ -5,17 +5,19 @@
 # Try to deploy this...
 ```
 pragma solidity ^0.4.0;
+pragma experimental ABIEncoderV2;
 
 contract MyContract {
-    bytes32[] arr;
+    bytes[] arr;
 
-    function set(bytes32 x) public {
-        arr.push(x);
+    function set(string memory x) public {
+        bytes memory b = bytes(x);
+        arr.push(b);
     }
 
-    function get() view public returns (bytes32[] memory) {
+    function get() view public returns (bytes[] memory) {
         uint n = arr.length;
-        bytes32[] memory result = new bytes32[](n);
+        bytes[] memory result = new bytes[](n);
         for (uint i = 0; i < n; i++) {
             result[i] = arr[i];
         }
