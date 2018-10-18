@@ -90,3 +90,19 @@ export PATH=$PATH:/home/mytest
 ```
 export -p
 ```
+
+## open
+
+open from command line
+
+```
+open -a "Google Chrome" hello.html
+open -a "Sublime Text 2" README.md
+```
+
+or add it to `~/.bashrc`
+
+```
+alias chrome='open -a "Google Chrome"'
+alias sublime='open -a "Sublime Text 2"'
+```
