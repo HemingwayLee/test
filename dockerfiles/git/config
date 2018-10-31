@@ -1,0 +1,9 @@
+# Git (Vaultedman Git)
+Host git.vaultedman.com
+  HostName git.vaultedman.com
+  Port 56699
+  User git
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_rsa
+#  UseKeychain yes
+#  AddKeysToAgent yes
