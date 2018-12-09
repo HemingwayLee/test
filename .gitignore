@@ -3,6 +3,17 @@
 .AppleDouble
 .LSOverride
 
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# dotenv
+.env
+
+# Dependency directories
+node_modules/
+
 ### Windows ###
 Thumbs.db
 ehthumbs.db
