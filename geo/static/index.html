@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet debug page</title>
+
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+
+  <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet-src.js"></script>
+
+
+  <script src="leaflet-markercluster.js"></script>
+  <script src="realworld.388.js"></script>
+  <script src="leaflet-image.js"></script>
+
+<style>
+  #map {
+    width: 100%;
+    height: 400px;
+  }
+  .marker-cluster-small {
+    background-color: rgba(181, 226, 140, 0.6);
+    }
+  .marker-cluster-small div {
+    background-color: rgba(110, 204, 57, 0.6);
+    }
+  .marker-cluster-medium {
+    background-color: rgba(241, 211, 87, 0.6);
+    }
+  .marker-cluster-medium div {
+    background-color: rgba(240, 194, 12, 0.6);
+    }
+  .marker-cluster-large {
+    background-color: rgba(253, 156, 115, 0.6);
+    }
+  .marker-cluster-large div {
+    background-color: rgba(241, 128, 23, 0.6);
+    }
+  .marker-cluster {
+    background-clip: padding-box;
+    border-radius: 20px;
+    }
+  .marker-cluster div {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+    text-align: center;
+    border-radius: 15px;
+    font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    }
+  .marker-cluster span {
+    line-height: 30px;
+    }
+</style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="images"></div>
+  <span>Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span>
+  <script type="text/javascript">
+    var latlng = L.latLng(-37.82, 175.24);
+    var map = L.map('map').setView(latlng, 13);
+    L.tileLayer('http://{s}.tile.stamen.com/toner-background/{z}/{x}/{y}.png', {
+      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      subdomains: 'abcd',
+      minZoom: 0,
+      maxZoom: 20
+    }).addTo(map);
+    var markers = L.markerClusterGroup();
+    for (var i = 0; i < addressPoints.length; i++) {
+      var a = addressPoints[i];
+      var title = a[2];
+      var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
+      marker.bindPopup(title);
+      markers.addLayer(marker);
+    }
+    map.addLayer(markers);
+    leafletImage(map, function(err, canvas) {
+      // now you have canvas
+      // example thing to do with that canvas:
+      var img = document.createElement('img');
+      var dimensions = map.getSize();
+      img.width = dimensions.x;
+      img.height = dimensions.y;
+      img.src = canvas.toDataURL();
+      document.getElementById('images').innerHTML = '';
+      document.getElementById('images').appendChild(img);
+    });
+  </script>
+</body>
+</html>
