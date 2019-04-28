@@ -1,0 +1,63 @@
+<html>
+<head>
+  <style>
+  table {
+    position: absolute;
+    border: 1px solid black;
+    text-align:center;
+    font-size: 24;
+  }
+
+  table:after {
+    content: "";
+    background: url(logo.png);
+    opacity: 0.015;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+  }
+  </style>
+  <!--<script src="../html2canvas.js"></script>
+  <script>
+  function convert() {
+    html2canvas(document.querySelector("#capture")).then(canvas => {
+      document.body.appendChild(canvas)
+    });
+  }
+  </script>-->
+</head>
+<body>
+<table id="capture">
+<tr><th></th><th>基本拉麵 (¥)</th><th>叉燒拉麵 (¥)</th><th>半熟蛋 (¥)</th></tr>
+ <tr><td>博多一双 博多站東本店</td><td>650</td><td>800</td><td>100</td></tr>
+ <tr><td>らぁめん シフク(429)</td><td>600</td><td>750</td><td>100</td></tr>
+ <tr><td>長浜ナンバーワン 祇園店</td><td>550</td><td>720</td><td>100</td></tr>
+ <tr><td>博多一幸舍 博多本店</td><td>700</td><td>900</td><td>100</td></tr>
+ <tr><td>Shin-Shin DEITOS店</td><td>650</td><td>890</td><td>100</td></tr>
+ <tr><td>元祖ぴかいち</td><td>530</td><td>700</td><td>100</td></tr>
+ <tr><td>長浜ナンバーワン DEITOS店</td><td>650</td><td>800</td><td>100</td></tr>
+ <tr><td>らーめん二男坊 博多本店</td><td>650</td><td>910</td><td>120</td></tr>
+ <tr><td>博多一幸舍 DEITOS店</td><td>750</td><td>950</td><td>120</td></tr>
+ <tr><td>元祖博多だるま DEITOS店</td><td>700</td><td>900</td><td>100</td></tr>
+</table>
+  <!-- <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <input type="button" onclick="convert();" value="Convert" style="font-size: 20px; -webkit-appearance: button;"></input>
+  <hr> -->
+</body>
+</html>
