@@ -1,3 +1,7 @@
+# Today  
+
+https://jlptstudy.net/N5/
+
 # Terminology
 
 ## What is NLP???? (Tasks in NLP)
@@ -44,20 +48,6 @@ http://onlinetutorials.today/nlp/synonyms-and-antonyms-from-nltk-wordnet-in-pyth
 ## What is latent semantic indexing and where can it be applied?????
 
 ## What is dependency parsing?????  
-It is the task of extracting a dependency parse of a sentence that represents its grammatical structure.  
-
-A `dependency parser` analyzes the grammatical structure of a sentence, establishing relationships between `head words` and words which modify those `heads`. (e.g., `faster` modifies `moving` in the following example)
-
-![alt text](https://nlp.stanford.edu/software/nndep-example.png)
-
-* What library we can use
-* What algorithm dependency parsing is using  
-transition-based parsing algorithm  
-* When to use dependency grammar structure  
-Generate POS tag  
-
-### Ref  
-http://www.shuang0420.com/2017/03/09/NLP%20%E7%AC%94%E8%AE%B0%20-%20Dependency%20Parsing%20and%20Treebank/  
 
 ## The difference between regular grammar and regular expression?????
 
