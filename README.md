@@ -55,5 +55,6 @@ https://jlptstudy.net/N5/
 https://zhuanlan.zhihu.com/p/53326791  
 
 
+![w2v](https://user-images.githubusercontent.com/8428372/61599911-4f636100-ac68-11e9-81fe-10110b37ba5f.png)
 
 
