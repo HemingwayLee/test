@@ -2,106 +2,58 @@
 
 https://jlptstudy.net/N5/
 
-# Terminology
+# Subword language model
 
-## What is NLP???? (Tasks in NLP)
+## Why
 
-* Similarity??? (word, sentence, article)
-* Named entity recognition (NER)???
-* Question Answering
-* Text generation??
-* Chatbot
-* Machine Translation?
-* Summarization?
-* Sentiment Analysis?
-* Classification of article?
-* Correct words by OCR or speech recognition system?
+### Words on the internet
+* Gooooood, Googliness
 
-### Design a model  
-* Design models to solve above tasks?
-* Design a model to find all the occurrences of quoted text in a news article
-* Design a model to identifies whether the word "Apple" in a sentence belongs to the fruit or the company
+### Morphology
+* [[un [[fortun(e) ]ROOT ate]STEM]STEM ly]WORD
 
-# Must know
+### Compound Noun
+* seafood, highschool, boyfriend, ...
+* 契約書
 
-* Tokenizer, POS tag???????
-* Stopwords??
-* TFIDF????
-* Word Embedding????
+### Writing systems (writing systems aren’t one thing)
+* Phonemic (maybe digraphs): jiyawu ngabulu
+* Fossilized phonemic: thorough failure
+* Ideographic (syllabic): https://en.wikipedia.org/wiki/Chinese_characters#/media/File:Evo-elephant.png  
+* Combination of the above: インド洋の島
 
-## Features of improving accuracy
-* POS tag
-* Counting frequency of words
-* TODO: What else? (check the paper....)
+## Model
+* purely character level model
+  * Accuracy slightly better than word level
+    * Good at: translation of people's name, `11-years-old`, ...
+      * Translation (Similar spellings share similar embeddings)
+        * Anna -> 安娜
+        * Andy -> 安迪
+        * Andrew -> 安德魯
+        * `Anderson` -> `安德森`
+        * Derek -> 德里克
+        * Jason -> 傑森
+    * Good at: deep and complicated model, worse than word level at simple model  
+  * Slow at training and predicting (because the length of sequence is longer)
+* Subword model (2 models)
+  * Same architecture as word level, but smaller (e.g., wordpieces)
+    * Byte-pair encoding (from compression area)
+      * Start with characters: a, e, i, o, ...
+      * Merge most commonest ngram: es, est, lo, ...
+      * Stop when we reach pre-defined number of tokens (e.g., 8,000 tokens)
+    * Good for multilingual
+    * Use finite wordpieces to build infinite words
+    * BERT uses variant of wordpieces (2 models)
+      * Rather than ngram count, uses a greedy approximation to maximizing language model log likelihood to choose the pieces
+      * Whitespace is retained as special token `_` and grouped normally
+  * Hybrid architecture: Mix words and characters
+    * Translate mostly at the word level
+    * Only go to the character level when needed
+  * FastText also uses Subword model. (Normal tokenizers (e.g., MeCab, Jumanpp) does not work well with it)
 
-## What is WordNet?? and what is Ontology (ConceptNet)?  
-We can use WordNet to find synonyms and antonyms  
-http://onlinetutorials.today/nlp/synonyms-and-antonyms-from-nltk-wordnet-in-python/
-
-
-## What is Lemmatization and Stemming (keyword normalization) in NLP????
-* Stemming is the process of reducing a word to its word stem that affixes to suffixes and prefixes.  
-* Lemmatizing is also same like stemming but the difference is lemmantizing words known with dictionary.  
-
-## How to remove punctuation?
-
-## What is latent semantic indexing and where can it be applied?????
-
-## What is dependency parsing?????  
-
-## The difference between regular grammar and regular expression?????
-
-## What is pragmatic analysis in NLP???
-
-## Explain the Masked Language Model??
-
-## What is the difference between NLP and NLU???
-
-## How does the PageRank algorithm work??
-
-## What is entropy? How would you estimate the entropy of the English language??
-
-## What are the difficulties in building and using an annotated corpus of text such as the Brown Corpus and what can be done to mitigate them?  
-https://en.wikipedia.org/wiki/Brown_Corpus  
-
-## What is Normalization?  
-Converting different range of values to same scale from 0 to 1.
-
-## What is NLG (Natural language Generation)?  
-It’s about generating new text from understanding old data.
-
-## What is Corpus ?  
-It’s a collection of text documents.
-
-## What is N-Gram, Unigram, Bigram, Trigram, and Skip-Tram?? 
-
-## What is Latent semantic analysis?
-
-## What is Latent Dirichlet Allocation?
+## Ref
+https://zhuanlan.zhihu.com/p/53326791  
 
 
-## What is text mining ? 
 
-## What is constituency parsing ?
-
-## What is bag-of-words model ?
-
-## What are models to reduce dimensionality of data in nlp?
-
-## What is document-term matrix ?
-
-## What is NLP usage in recommendation engines ?
-
-## What are conditional random fields ?
-
-## What are hidden markov fields?
-
-## What is Naive bayes algorithm, When we can use this algorithm in NLP?
-
-## Levenshtein Distance
-## Phonetic Matching
-## Flexible String Matching
-
-## What is Coreference Resolution ?
-## What is Ambiguity in NLP ?
 
