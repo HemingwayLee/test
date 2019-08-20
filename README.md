@@ -28,3 +28,19 @@ int main()
 	return 0;
 }
 ```
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+string foo() {
+    string* s = new string("World");
+    return *s;
+}
+
+void main()
+{
+    cout << "Hello, " << foo();
+}
+```
