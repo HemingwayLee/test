@@ -10,7 +10,6 @@ int x = 1;
 
 void thread_function()
 {
-	x = x - 1;
 	x = x + 1;
 }
 
