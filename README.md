@@ -18,4 +18,23 @@ https://jlptstudy.net/N5/
   * different tokenizers in different language provides different information
 
 # OCR
+OCR for Japanese (and Chinese) is harder
+
+* Pre-proc
+  * Denoise
+  * Remove unrelated things on contracts
+  * Rotation
+* tesseract
+  * retrain tesseract
+* Post-proc
+  * Base on language model
+  * BERT + kanji strokes + kanji similarity
+
+# NER
+It can detect more things than regex
+
+* biLSTM
+* QA using 
+  * spaCy with GINZA
+  * BERT
 
