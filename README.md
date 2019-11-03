@@ -5,4 +5,4 @@ https://jlptstudy.net/N5/
 # Clean repo
 
 
-![table](https://user-images.githubusercontent.com/8428372/67216558-5dd73980-f45e-11e9-9352-90c38429f293.png)
+![table](https://user-images.githubusercontent.com/8428372/68086331-186b3100-fe8e-11e9-88cd-842302b68fa0.png)
