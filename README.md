@@ -18,7 +18,11 @@ https://jlptstudy.net/N5/
 
 # complex team project
 
-# give feedback to employees
+# give feedback to employees 
+https://www.youtube.com/watch?v=u4E8U_GPhMY  
+
+* describe observation
+* Setting someone up for future success
 
 # most difficult decision
 
