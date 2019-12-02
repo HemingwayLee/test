@@ -6,6 +6,12 @@ https://jlptstudy.net/N5/
 * Cams
 
 # motivate 
+* Let them believe they can do it
+* write it down
+* willing to be failed
+* Hire the best, has a role model, surrounded by winners
+* self-image: what other people think about me
+
 
 # set priorities
 * scrum
@@ -17,6 +23,8 @@ https://jlptstudy.net/N5/
 # most difficult decision
 
 # help develop careers
+* try different things because jobs, industry is changing
+* dual-path in company
 
 # think outside the box to complete
 
