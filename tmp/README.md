@@ -1,3 +1,15 @@
+# describe the culture at previous companies
+* trust
+* flexible
+* multiple culture
+
+# solved a difficult problem at work
+
+# real-life example of their ability to be a team player
+
+# How do you like to be managed
+* trust
+
 # a perfect workday look like
 * aim: `see your value in daily basis`, `how they will treat others`, `time management`, `self-awareness: nobody has an ideal schedule every single day`
 
