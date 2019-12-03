@@ -1,13 +1,27 @@
+# a perfect workday look like
+* aim: `see your value in daily basis`, `how they will treat others`, `time management`, `self-awareness: nobody has an ideal schedule every single day`
+
+# work-life balance
+* handle stress (travel, watch baseball, workout, try new food, ...)
+
+# Experience to talk to client
+* Bug fixing example
+
+# Keep relationship with coworkers
+* common interests (comic book, animation, sports, ...)
+  * study group
+  * club
+
 # Difficult personal
 * Cams
 
 # motivate 
 * Let them believe they can do it
-* write it down
-* willing to be failed
+  * self-image: what other people think about me
 * Hire the best, has a role model, surrounded by winners
-* self-image: what other people think about me
-
+* others
+  * write it down
+  * willing to be failed
 
 # set priorities
 * scrum
