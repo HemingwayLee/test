@@ -77,24 +77,3 @@ https://www.youtube.com/watch?v=u4E8U_GPhMY
 * passion and excitement in sharing their expertise
 * ability to concisely summarize and express multilevel ideas without getting bogged down in the details or going off track
 
-# supervised vs unsupervised
-
-# Name the ML algorithm
-
-# ROC curve
-
-# Precision and recall 
-
-# regularization 
-
-# Regression vs Classification
-
-# Handling missing data
-
-# Accuracy is low during training
-
-# Accuracy is high during training, but it is low during testing
-
-# Which feature is important
-
-# Are you collecting features you need to do classification
