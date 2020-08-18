@@ -1,3 +1,23 @@
+# Why we need the cloud
+* Reduce the cost of maintaining Hardware & Software & IT related stuff
+  * VM services are easier to use/setup/deploy/snaphot/update/rollback
+    * Bs-series: low-cost solution
+    * Fsv2: Compute optimized
+    * Dv3: general purpose
+    * Ev3: Memory optimized
+  * Monitoring services is easier (e.g., charts/reports/status)
+  * Easier to do Disaster recovery (DR) and Replication
+
+* Better computational power and pay as you go
+
+# Choose between private cloud, public cloud, and hybird cloud
+
+![terms](https://i.imgur.com/Aj0HhN7.jpg)
+
+![pass](https://user-images.githubusercontent.com/8428372/90464008-51d40b00-e147-11ea-86a0-a5f5a175e050.png)
+
+* Most of services on Azure are PasS and IaaS
+
 ## Comparison
 | AWS | Azure | Google Cloud |
 | --- | --- | --- |
