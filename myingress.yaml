@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-dj-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-dj-deployment
+  template:
+    metadata:
+      labels:
+        app: my-dj-deployment
+    spec:
+      containers:
+      - name: my-dj-deployment
+        image: ywlee/hello_django:10
+        command: ["python3"]
+        args: ["manage.py", "runserver", "0.0.0.0:8000"]
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-dj-deployment
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    targetPort: 8000
+  selector:
+    app: my-dj-deployment
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: simple-fanout-example
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /(.*)
+        backend:
+          serviceName: my-dj-deployment
+          servicePort: 8000
