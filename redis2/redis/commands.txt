@@ -1,3 +1,0 @@
-set foo "This is a single argument set to string object"
-strlen foo
-
