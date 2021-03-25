@@ -1,17 +1,20 @@
-import time
-from selenium import webdriver
+import scrapy
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
 
-driver = webdriver.Chrome('/Users/Rosemary/Downloads/chromedriver') 
-driver.get('http://npb.jp/bis/2018/stats/idb2_g.html')
-time.sleep(5) # Let the user actually see something!
+class MySpider(CrawlSpider):
+    name = 'example'
+    allowed_domains = ['ec2-54-238-101-61.ap-northeast-1.compute.amazonaws.com']
+    start_urls = ['http://ec2-54-238-101-61.ap-northeast-1.compute.amazonaws.com']
 
-tbody = driver.find_element_by_xpath('//*[@id="stdivmaintbl"]/table/tbody')
-# print("tbody: ", tbody)
+    rules = (
+        Rule(LinkExtractor(allow=r'/.*'), callback='parse_item', follow=True),
+    )
 
-for tr in tbody.find_elements_by_class_name('ststats'):
-  for td in tr.find_elements_by_tag_name('td'):
-    print(td.text)
-
-driver.quit()
+    def parse_item(self, response):
+        print(response)
+        filename = response.url.split("/")[-2] + '.html'
+        with open(filename, 'wb') as f:
+            f.write(response.body)
 
 
