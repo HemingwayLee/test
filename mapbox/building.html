@@ -17,9 +17,9 @@
       mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
       var map = new mapboxgl.Map({
         style: 'mapbox://styles/mapbox/light-v10',
-        center: [120.979531, 23.978567],
+        center: [139.767059, 35.681168],
         zoom: 15.5,
-        pitch: 45,
+        pitch: 55,
         bearing: -17.6,
         container: 'map',
         antialias: true
@@ -36,38 +36,48 @@
         }
 
         map.addLayer({
-            'id': '3d-buildings',
-            'source': 'composite',
-            'source-layer': 'building',
-            'filter': ['==', 'extrude', 'true'],
-            'type': 'fill-extrusion',
-            'minzoom': 15,
-            'paint': {
-                'fill-extrusion-color': '#aaa',
-                'fill-extrusion-height': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    15,
-                    0,
-                    15.05,
-                    ['get', 'height']
-                ],
-                'fill-extrusion-base': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    15,
-                    0,
-                    15.05,
-                    ['get', 'min_height']
-                ],
-                'fill-extrusion-opacity': 0.6
-            }
-          },
-          labelLayerId
+          'id': '3d-buildings',
+          'source': 'composite',
+          'source-layer': 'building',
+          'filter': ['==', 'extrude', 'true'],
+          'type': 'fill-extrusion',
+          'minzoom': 15,
+          'paint': {
+            'fill-extrusion-color': '#aaa',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'height']
+            ],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'min_height']
+            ],
+            'fill-extrusion-opacity': 0.6
+          }
+        },
+        labelLayerId
         );
       });
+
+      map.on('click', '3d-buildings', function(e) {
+        console.log(e);
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          // .setHTML(e.features[0].properties.name)
+          .setHTML(e.lngLat)
+          .addTo(map);
+      });
+
     </script>
   </body>
 </html>
