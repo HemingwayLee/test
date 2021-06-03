@@ -82,3 +82,113 @@ https://jlptstudy.net/
 
 # page
 77c9Ws1u7nRva6efUsdW2n
+
+
+
+
+
+# Stanford
+## cs224n (NLP)
+  * ch1: wordnet, word2vec, GloVe
+  * ch2: SVD word vectors, 
+  * ch3: classifier decision boundaries, NN, bio tagging
+  * ch4: computation graph, activation functions, learning rate
+  * ch5: tokenizer, Dependency structure
+  * ch6: Language Models (LM), A fixed-window neural Language Model, RNN
+  * ch7: Vanishing gradient, Gradient clipping, GRU, LSTM
+    * LM: n-gram, RNN, LSTM
+      * Syntactic recency: The writer of the books is (correct)
+      * Sequential recency: The writer of the books are (incorrect)
+  * ch8: Machine Translation (MT), Seq2seq and Attention
+    * SMT vs NMT
+    * Beam search decoding
+  * ch10: Question Answering, SQuAD, transformers, BERT
+  * ch11: CNN, drop out, Batch Normalization, PoS tagging, Character-level Representations
+    * convolution, paddding, pooling, stride, dilation, channels
+  * ch12: character-level models, Byte Pair Encoding, Wordpiece/Sentencepiece model, FastText 
+  * ch13-14: BERT, Masked LM, ELMO, GPT-2, Transformer, self-attention
+  * ch15, 19: Natural Language Generation
+    * Machine Translation, (Abstractive) Summarization, Dialogue (chit-chat and task-based), Creative writing: storytelling, poetry-generation, Freeform Question Answering (i.e. answer is generated, not extracted from text or knowledge base), Image captioning
+    * Low Resource Machine Translation
+  * ch16: Reference in Language and Coreference Resolution
+  * ch17: Socially Responsible NLP
+  * ch18: Recursive Neural Network
+  * ch20: Interpretability
+## CS231n (Convolutional Neural Networks for Visual Recognition)
+## CS234 (reinforcement learning)
+## Andrew Ng's Machine Learning
+
+# NTU
+## [Deep Learning for Human Language Processing](http://speech.ee.ntu.edu.tw/~tlkagk/courses_DLHLP20.html)
+## [Machine Learning](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html)
+## [Applied Deep Learning](https://www.csie.ntu.edu.tw/~miulab/s108-adl/syllabus)
+* ch1: Introduction
+* ch2: Neural Network Basics
+* ch3: Word Representation
+* ch4: Recurrent Neural Network
+* ch5: Attention Mechanism
+* ch6: Word Embeddings
+* ch7: Contextual Embeddings: ELMO
+* ch8: Transformer
+* ch9: BERT
+* ch10: Deep Reinforcement Learning
+* ch11: Q-Learning
+* ch12: Natural Language Generation
+* ch13: Generative Adversarial Network
+* ch14: Beyond Supervised Learning
+* ch15: Towards Conversational AI
+* ch16: Robustness and Scalability
+
+# NCKU
+## Introduction to Image Processing, Computer Vision and Deep Learning [Jenn-Jier James Lien](http://robotics.csie.ncku.edu.tw/course.html)
+## Machine learning [Jenn-Jier James Lien](http://robotics.csie.ncku.edu.tw/course.html)
+
+# NCCU (National Chung Cheng University)
+## Yu pao-ta [OpenEdu](https://www.openedu.tw/course.jsp?id=517)
+* Introduction 
+* The Concept of Perceptron 
+* Optimal Learning 
+* LMS Learning Algorithm
+* The Backpropagation Algorithm
+* Convolution Neural Network
+* CNN Develop Tools
+* Recurrent Neural Network
+* RNN Develop Tools
+
+## Introduction to Deep Learning (pahsiung)
+* Introduction to Deep Learning
+* Neural Networks (NN)
+  * Basics, Shallow NN, Deep NN
+* Tuning DNN
+  * Regularization & Dropout, Optimization, Gradient Checking, Momentum, RMSprop, Adam, Learning rate decay, Hyperparameter tuning, Batch Normalization, Softmax Regression
+* Machine Learning Projects
+  * Error Analysis, Transfer Learning, Multi-task Learning
+* Convolutional Network Networks
+* Sequence Models
+
+## Machine learning [Chen-Kuo Chiang](https://www.cs.ccu.edu.tw/~ckchiang/)
+* Introduction to Machine Learning and Data Mining  
+* Concept Learning, Specialization and generalization Search, Version Space  
+* Decision Tree, Tree Induction Algorithm, Post Pruning, Induction Bias, Overfit  
+* Sequential Covering Algorithm, Learning Rule Sets, Learning Pattern Rules for Information Extraction  
+* Bayes Theorem, Bayes Theorem and Concept Learning, Bayes Optimal Classifier, Naive Bayes Classifier, Application in Text Categorization  
+* k-Nearest Neighbor Learning, Locally Weighted Regression  
+* Markov Process, Hidden markov Model, Learning Hidden markov Models, Viterbi Algorithm  
+* k-Mean Clustering, EM Algorithm, Hierarchical Custering, Association Rules  
+* Perceptron Learning, Multilayer Network and Backpropagation Algorithm, Bayesian Belief Networks
+* Hyperplane Classifiers, Optimal Separating Hyperplane, Kernel Functions, Support Vector Machine  
+* Text Categorization, Information Extraction, and Computer Games  
+
+# NPTU
+* ch1: Introduction
+* ch2: Linear Algebra
+* ch3: K-nearest neighbor
+* ch4: Linear (Binary/Multiple) Classification 
+* ch5: Cross Validation
+* ch6: NN
+* ch7: NLP
+* ch8: Language Model
+* ch9: PoS tagging
+* ch10: Computer Vision
+* ch11: Filtering and CNN
+* 
