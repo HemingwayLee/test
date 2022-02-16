@@ -74,6 +74,10 @@ https://hbr.org/2018/06/what-blockchain-cant-do
 ## 51% attack
 * double spending
 
+## NFT
+* NFT wallet
+* Trading platform
+
 # Google SEO
 Budget on each website -> do not crawl this page...
 
