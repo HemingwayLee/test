@@ -57,7 +57,8 @@ https://hbr.org/2018/06/what-blockchain-cant-do
 
 ## ETH
 * Explain [transaction](https://ethereum.org/en/developers/docs/transactions/)
-* 
+* [ERC-721 Validator](https://erc721validator.org/)
+* How to find all ERC721 compliant NFTs owned by an address? [stackoverflow](https://ethereum.stackexchange.com/questions/98233/how-to-find-all-erc721-compliant-nfts-owned-by-an-address-web3-js)
 
 ## BCH
 * The block size is too small, BTC soluiton is `Segwit`
