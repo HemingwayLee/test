@@ -1,3 +1,240 @@
-<h1>hello, firebase</h1>
-
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Start Help Buy</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+  
+  </head>
+  <body>
+    
+    <!-- <nav class="navbar navbar-light bg-light static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <a class="btn btn-primary" href="#signup">Sign Up</a>
+      </div>
+    </nav> -->
+    
+    <header class="masthead">
+      <div class="container position-relative">
+        <div class="row justify-content-center">
+          <div class="col-xl-6">
+            <div class="text-center">
+              <!-- Page heading-->
+              <h1>把日本精品帶回家</h1>
+              <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
+                <!-- Email address input-->
+                <div class="row">
+                  <!-- <div class="col">
+                    <input class="form-control form-control-lg" id="emailAddress" type="email" placeholder="Email Address" data-sb-validations="required,email" />
+                    <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:required">Email Address is required.</div>
+                    <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:email">Email Address Email is not valid.</div>
+                  </div> -->
+                  <div><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit"><i class="bi-facebook fs-3"></i> 馬上下單</button></div>
+                </div>
+                <div class="d-none" id="submitSuccessMessage">
+                  <div class="text-center mb-3">
+                    <div class="fw-bolder">Form submission successful!</div>
+                    <p>To activate this form, sign up at</p>
+                    <a class="text-white" href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                  </div>
+                </div>
+                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Icons Grid-->
+    <section class="features-icons bg-light text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+              <div class="features-icons-icon"><i class="fas fa-plane-departure"></i></div>
+              <h3>日本直送</h3>
+              <p class="lead mb-0">零距離日本體驗，無論您在台灣何地，我們都能發貨給您。</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+              <div class="features-icons-icon"><i class="fas fa-gem"></i></div>
+              <h3>貨真價實</h3>
+              <p class="lead mb-0">獨特和優質精緻的產品，實用度高。體驗日本產品的質素和背後的心思。</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+              <div class="features-icons-icon"><i class="fas fa-clock"></i></div>
+              <h3>限時限量</h3>
+              <p class="lead mb-0">將於 <span style="color: red" id="demo"></span> 後截止</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Image Showcases-->
+    <section class="showcase">
+      <div class="container-fluid p-0">
+        <div class="row g-0">
+          <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-cup.jpg')"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+            <h2>タリーズコーヒー馬克杯</h2>
+            <p class="lead mb-0">窯燒的陶瓷馬克杯，不掉色，耐高溫，印上豐富可愛療癒的鳥獸戲畫圖案，增添喝咖啡的樂趣。</p>
+          </div>
+        </div>
+        <div class="row g-0">
+          <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/bg-bag2.jpg')"></div>
+          <div class="col-lg-6 my-auto showcase-text">
+            <h2>タリーズコーヒー帆布包</h2>
+            <p class="lead mb-0">質感休閒袋、購物袋，可以裝很多東⻄，柔軟卻堅固的帆布包，去郊遊、爬⼭、菜市場、超市都好裝好⽤。</p>
+          </div>
+        </div>
+        <div class="row g-0">
+          <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-bottle.jpg')"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+            <h2>タリーズコーヒー保溫杯</h2>
+            <p class="lead mb-0">是您喝紅茶、抹茶、水果茶、冷泡茶和咖啡的好伴侶。無論上班、上課、郊遊、出國，你每天也需要時尚的隨身瓶嘍。輕巧好攜、內裝飲口蓋、方便不漏水、設計好貼心。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials-->
+    <section class="testimonials text-center bg-light">
+      <div class="container">
+        <h2 class="mb-5">來自相信我們的使用者</h2>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+              <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-1.jpg" alt="..." />
+              <h5>Margaret E.</h5>
+              <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+              <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-2.jpg" alt="..." />
+              <h5>Fred S.</h5>
+              <p class="font-weight-light mb-0">"It is amazing. I've been using it everyday."</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+              <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-3.jpg" alt="..." />
+              <h5>Sarah W.</h5>
+              <p class="font-weight-light mb-0">"Thanks so much for making this available to us!"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Call to Action-->
+    <section class="call-to-action text-white text-center" id="signup">
+      <div class="container position-relative">
+        <div class="row justify-content-center">
+          <div class="col-xl-6">
+            <h2 class="mb-4">準備好了嗎？</h2>
+            <form class="form-subscribe" id="contactFormFooter" data-sb-form-api-token="API_TOKEN">
+              <!-- Email address input-->
+              <div class="row">
+                <!-- <div class="col">
+                  <input class="form-control form-control-lg" id="emailAddressBelow" type="email" placeholder="Email Address" data-sb-validations="required,email" />
+                  <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:required">Email Address is required.</div>
+                  <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:email">Email Address Email is not valid.</div>
+                </div> -->
+                <div><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit"><i class="bi-facebook fs-3"></i> 馬上下單</button></div>
+              </div>
+              <div class="d-none" id="submitSuccessMessage">
+                <div class="text-center mb-3">
+                  <div class="fw-bolder">Form submission successful!</div>
+                  <p>To activate this form, sign up at</p>
+                  <a class="text-white" href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                </div>
+              </div>
+              <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    <!-- <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><a href="#!">About</a></li>
+              <li class="list-inline-item">⋅</li>
+              <li class="list-inline-item"><a href="#!">Contact</a></li>
+              <li class="list-inline-item">⋅</li>
+              <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+              <li class="list-inline-item">⋅</li>
+              <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+            </ul>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2021. All Rights Reserved.</p>
+          </div>
+          <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item me-4">
+                <a href="#!"><i class="bi-facebook fs-3"></i></a>
+              </li>
+              <li class="list-inline-item me-4">
+                <a href="#!"><i class="bi-twitter fs-3"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#!"><i class="bi-instagram fs-3"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer> -->
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script>
+      // Set the date we're counting down to
+      var countDownDate = new Date("May 5, 2022 15:37:25").getTime();
+      
+      // Update the count down every 1 second
+      var x = setInterval(function() {
+      
+        // Get today's date and time
+        var now = new Date().getTime();
+          
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+          
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+        // Output the result in an element with id="demo"
+        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+          
+        // If the count down is over, write some text 
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("demo").innerHTML = "EXPIRED";
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
