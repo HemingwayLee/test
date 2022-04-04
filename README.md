@@ -50,6 +50,15 @@ https://hbr.org/2018/06/what-blockchain-cant-do
 * Miner does not have to get `full node`
 * Why no smart contract? smart contract is new, it is designed to be money system, no need to have smart contract
 * BIP (Bitcoin Improvement Proposal)
+* BTC uses `SHA-256` and LTC\DOGE uses `Scrypt` as hash algorithm
+  * With `SHA-256`, you need only computing power to run the algorithm
+  * `Scrypt` uses not only computing power but also memory
+    * The final goal of Scrypt is to be more memory intensive in a way to make it impractical to run the algorithm on FPGAs and custom chips (ASICs)
+
+## ETH
+* Explain [transaction](https://ethereum.org/en/developers/docs/transactions/)
+* [ERC-721 Validator](https://erc721validator.org/)
+* How to find all ERC721 compliant NFTs owned by an address? [stackoverflow](https://ethereum.stackexchange.com/questions/98233/how-to-find-all-erc721-compliant-nfts-owned-by-an-address-web3-js)
 
 ## BCH
 * The block size is too small, BTC soluiton is `Segwit`
@@ -73,6 +82,10 @@ https://hbr.org/2018/06/what-blockchain-cant-do
 
 ## 51% attack
 * double spending
+
+## NFT
+* NFT wallet
+* Trading platform
 
 # Google SEO
 Budget on each website -> do not crawl this page...
