@@ -115,3 +115,8 @@ https://www.carbondesignsystem.com/community/patterns/generate-an-api-key/
 https://stackoverflow.com/questions/3002067/how-are-software-license-keys-generated  
 https://www.licenturion.com/xp/fully-licensed-wpa.txt  
 
+
+PROJECT_ID=3163b21e0c1449f69a2c7145acc0e4bd
+PUBLIC_KEY=0x43E5E30DfDedC2d702243316C2D35325E23d395a,0xC444dC0e3AcaAb7875D4Dcd93EC119C9315F9479,0x6408907e9085C7471A9f26E3B127734c25437c35,0x566119e0B59A2FeDD697d4a1072a834cBA0A2a20
+PRIVATE_KEY=0xcd0d54799b5fd9f50425bc595fdcd5e498dca79c48f1052f4eef964da7088314,0x36e852caf56c512278ce33360aec79c6d46f8d8828a552161c12308b6e6b216d,0x90471a0659fd3727bd553616e46db5a9eb17bdff733b9193c5c00bfa605c5beb,0xe19ada91fb18f61ffa8845cb5129a29fffa3480c837ce1d673b42fbe529c9536
+
