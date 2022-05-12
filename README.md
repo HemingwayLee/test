@@ -48,6 +48,10 @@ https://hbr.org/2018/06/what-blockchain-cant-do
 * [fixed supply](https://cryptoli.st/lists/fixed-supply)  
 * How to have limited amount of BTC (in its protocol, in the config file, and the config file is hashed)
 * Miner does not have to get `full node`
+  * What does a miner do?
+  * How transactions broadcast to miners?
+  * How 51% attacks enable double spending?
+  * How does fee comes from?
 * Why no smart contract? smart contract is new, it is designed to be money system, no need to have smart contract
 * BIP (Bitcoin Improvement Proposal)
 * BTC uses `SHA-256` and LTC\DOGE uses `Scrypt` as hash algorithm
