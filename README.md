@@ -47,13 +47,15 @@ https://hbr.org/2018/06/what-blockchain-cant-do
 ## BTC
 * [fixed supply](https://cryptoli.st/lists/fixed-supply)  
 * How to have limited amount of BTC (in its protocol, in the config file, and the config file is hashed)
-* Miner does not have to get `full node` (e.g., `bitcoin core`, and `bitcoind`)
+* [Mining](https://developer.bitcoin.org/devguide/mining.html) does not have to get `full node` (e.g., `bitcoin core`, and `bitcoind`)
   * What does a miner do?
     * Solo Mining
     * Pool Mining
   * How transactions broadcast to miners?
   * How 51% attacks enable double spending?
-  * How does fee comes from?
+  * How does fee comes from? 
+    * COINBASE (Newly Generated Coins) transaction is the first transaction in a block. It is a unique type of bitcoin transaction.
+    * The block reward is a combination of the block subsidy (newly minted bitcoin) and all transaction fees paid by transactions in a block. The block reward is collected by miners in the coinbase transaction.
 * Why no smart contract? smart contract is new, it is designed to be money system, no need to have smart contract
 * BIP (Bitcoin Improvement Proposal)
 * BTC uses `SHA-256` and LTC\DOGE uses `Scrypt` as hash algorithm
