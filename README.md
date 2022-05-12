@@ -47,8 +47,10 @@ https://hbr.org/2018/06/what-blockchain-cant-do
 ## BTC
 * [fixed supply](https://cryptoli.st/lists/fixed-supply)  
 * How to have limited amount of BTC (in its protocol, in the config file, and the config file is hashed)
-* Miner does not have to get `full node`
+* Miner does not have to get `full node` (e.g., `bitcoin core`, and `bitcoind`)
   * What does a miner do?
+    * Solo Mining
+    * Pool Mining
   * How transactions broadcast to miners?
   * How 51% attacks enable double spending?
   * How does fee comes from?
