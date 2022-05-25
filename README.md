@@ -51,7 +51,7 @@ https://hbr.org/2018/06/what-blockchain-cant-do
   * What does a miner do?
     * Solo Mining
     * Pool Mining
-  * How transactions broadcast to miners?
+  * How transactions broadcast to (all) miners?
   * How 51% attacks enable double spending?
   * How does fee comes from? 
     * COINBASE (Newly Generated Coins) transaction is the first transaction in a block. It is a unique type of bitcoin transaction.
