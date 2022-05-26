@@ -1,5 +1,4 @@
 ## BTC
-* [Mining](https://developer.bitcoin.org/devguide/mining.html) does not have to get `full node` (e.g., `bitcoin core`, and `bitcoind`)
   * What does a miner do?
     * Solo Mining
     * Pool Mining (can [fixed Selfish Mining issue](https://eprint.iacr.org/2019/486.pdf))
@@ -34,11 +33,9 @@
 ## ETH
 * [ETH switch to PoS](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/) on 2021
   * In PoS, validators explicitly stake capital in the form of ether. This staked ether then acts as collateral that can be destroyed if the validator behaves dishonestly or lazily
-* Explain [transaction](https://ethereum.org/en/developers/docs/transactions/)
 * ERC (Ethereum request for comment)
   * [ERC-20 doc](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
   * [ERC-721 Validator](https://erc721validator.org/)
-  * How to find all ERC721 compliant NFTs owned by an address? [stackoverflow](https://ethereum.stackexchange.com/questions/98233/how-to-find-all-erc721-compliant-nfts-owned-by-an-address-web3-js)
 
 ## BCH
 * The block size is too small, BTC soluiton is `Segwit`
