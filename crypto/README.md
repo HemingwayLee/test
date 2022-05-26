@@ -1,6 +1,4 @@
 ## BTC
-* [fixed supply](https://cryptoli.st/lists/fixed-supply)  
-* How to have limited amount of BTC (in its protocol, in the config file, and the config file is hashed)
 * [Mining](https://developer.bitcoin.org/devguide/mining.html) does not have to get `full node` (e.g., `bitcoin core`, and `bitcoind`)
   * What does a miner do?
     * Solo Mining
@@ -23,7 +21,6 @@
   * How does fee comes from? 
     * COINBASE (Newly Generated Coins) transaction is the first transaction in a block. It is a unique type of bitcoin transaction.
     * The block reward is a combination of the block subsidy (newly minted bitcoin) and all transaction fees paid by transactions in a block. The block reward is collected by miners in the coinbase transaction.
-* Why no smart contract? smart contract is new, it is designed to be money system, no need to have smart contract
 * BIP (Bitcoin Improvement Proposal)
   * [Hard forking or soft forking](https://www.bitpanda.com/academy/en/lessons/how-do-hard-and-soft-forks-work/) might happen
 * BTC uses `SHA-256` and LTC\DOGE uses `Scrypt` as hash algorithm
@@ -64,5 +61,3 @@
 
 ## MultiChain (Private, Permissioned)
 * Based on Bitcoin blockchain (but enhanced)
-
-
