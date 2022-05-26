@@ -79,6 +79,7 @@ https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understandin
 ![TxLifecycle](https://miro.medium.com/max/1400/0*UBB7E4EX08OkZy6Z.jpg)
 
 ## ETH
+* [ETH switch to PoS](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/) on 2021
 * Explain [transaction](https://ethereum.org/en/developers/docs/transactions/)
 * [ERC-20 doc](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
 * [ERC-721 Validator](https://erc721validator.org/)
