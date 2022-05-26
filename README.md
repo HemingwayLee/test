@@ -94,11 +94,13 @@ https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understandin
 
 ## Hyperledge
 * For private blockchain
+  * * it has 5 sub-projects
+  * There are many different types of blockchains
 * it support confidential transactions (only visible for selected parties)
-* it has 5 sub-projects
 * Permissionless (B2C, C2C) and Permissioned (B2B). The Consensus algorithms are different from one another 
 * Consensus algorithm is pluggable: Proof of Work, Proof of Stack, Proof of Elapsed Time
 * Chaincode: like smart contract
+  * It is a program, written in `Go`, `node.js`, or `Java`
 
 
 ## MultiChain (Private, Permissioned)
