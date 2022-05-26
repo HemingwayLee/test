@@ -51,7 +51,7 @@ https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understandin
     * Pool Mining (can [fixed Selfish Mining issue](https://eprint.iacr.org/2019/486.pdf))
       * [Selfish mining](https://www.investopedia.com/terms/s/selfish-mining.asp) is a deceitful cryptocurrency mining strategy in which one miner or a group solves a hash, opens a new block, and withholds it from the public blockchain. This action creates a fork, which is then mined to get ahead of the public blockchain
       * Not all cryptocurrency `mining pools` function in the same way
-      * A mining pool is a joint group of cryptocurrency miners who combine their computational resources over a network to strengthen the probability of finding a block
+      * A [mining pool](https://www.investopedia.com/terms/m/mining-pool.asp) is a joint group of cryptocurrency miners who combine their computational resources over a network to strengthen the probability of finding a block
   * How transactions broadcast to (all) miners? [reading](https://globalxetfs.co.jp/en/research/bitcoin-the-basics/index.html)  
     * all [unconfirmed transactions](https://www.blockchain.com/btc/unconfirmed-transactions) are in `mempool`
     * The mempool may differ from node-to-node
