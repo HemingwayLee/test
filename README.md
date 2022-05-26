@@ -2,7 +2,7 @@
 [shcheck](https://github.com/meliot/shcheck)
 
 # TODO
-* docker: pgbouncer, hadoop, cron, docker django hot reloading
+* docker: pgbouncer, hadoop, cron
 * Study Heroku (PaaS)
 * AI: GloVe, pytroch, Lasso
   * [backprop](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b)
@@ -25,9 +25,6 @@ https://paperswithcode.com/
   * How to read static file from inside a Python package
   * duplicate virtualenv
 * Binary data in json string, use Base64 algorithm?
-* psql
-  * Set password for postgres using docker-compose
-  * PGPASSWORD
 * Django: 404, Audit table, rbac, Test, is django/nodejs async just like play framework? Make file upload async
   * Swagger
   * Serving gzip content from django
@@ -40,9 +37,10 @@ python3 manage.py loaddata init_template.json
 * Pandas always has index, if you dont need it, set it to false
 
 # Blockchain
-* The last mile of blockchain
-https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understanding-the-economics-affecting-the-future-of-blockchain/  
-https://hbr.org/2018/06/what-blockchain-cant-do  
+* [The last mile of blockchain](
+https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understanding-the-economics-affecting-the-future-of-blockchain/)
+* [What blockchain can do](https://hbr.org/2018/06/what-blockchain-cant-do)
+* [Coin heatmap](https://coin360.com/)
 
 ## BTC
 * [fixed supply](https://cryptoli.st/lists/fixed-supply)  
