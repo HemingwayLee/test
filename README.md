@@ -49,7 +49,17 @@ https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understandin
   * What does a miner do?
     * Solo Mining
     * Pool Mining
-  * How transactions broadcast to (all) miners?
+  * How transactions broadcast to (all) miners? [reading](https://globalxetfs.co.jp/en/research/bitcoin-the-basics/index.html)
+    * all [unconfirmed transactions](https://www.blockchain.com/btc/unconfirmed-transactions) are in `mempool`
+    * The mempool may differ from node-to-node
+    * Not all nodes may have all transactions
+    * Different nodes may choose/discard a transaction for `various reasons` (e.g., fee)
+    * Issues That Arise Due to `Network Latency`
+      * Different nodes inevitably receive information at slightly different times due to network latency
+      * This scenario can create `temporary fork` in the blockchain
+        * The probability that both sides of the forked chain continue to solve the PoW at the same time quickly goes to zero as more blocks are produced
+        * As soon as one side finds the next block before the other, the chain that produced this block is considered the main blockchain and the other side of the chain is abandoned based on protocol rules
+      * ![temp fork](https://globalxetfs.co.jp/en/research/bitcoin-the-basics/ljujd800000001pz-img/211026_Bitcoin101_Forked.png)
   * How 51% attacks enable double spending?
   * How does fee comes from? 
     * COINBASE (Newly Generated Coins) transaction is the first transaction in a block. It is a unique type of bitcoin transaction.
@@ -60,6 +70,9 @@ https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understandin
   * With `SHA-256`, you need only computing power to run the algorithm
   * `Scrypt` uses not only computing power but also memory
     * The final goal of Scrypt is to be more memory intensive in a way to make it impractical to run the algorithm on FPGAs and custom chips (ASICs)
+
+### Transaction lifecycle
+![TxLifecycle](https://miro.medium.com/max/1400/0*UBB7E4EX08OkZy6Z.jpg)
 
 ## ETH
 * Explain [transaction](https://ethereum.org/en/developers/docs/transactions/)
