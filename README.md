@@ -48,7 +48,8 @@ https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understandin
 * [Mining](https://developer.bitcoin.org/devguide/mining.html) does not have to get `full node` (e.g., `bitcoin core`, and `bitcoind`)
   * What does a miner do?
     * Solo Mining
-    * Pool Mining
+    * Pool Mining (can [fixed Selfish Mining issue](https://eprint.iacr.org/2019/486.pdf))
+      * [Selfish mining](https://www.investopedia.com/terms/s/selfish-mining.asp) is a deceitful cryptocurrency mining strategy in which one miner or a group solves a hash, opens a new block, and withholds it from the public blockchain. This action creates a fork, which is then mined to get ahead of the public blockchain
   * How transactions broadcast to (all) miners? [reading](https://globalxetfs.co.jp/en/research/bitcoin-the-basics/index.html)
     * all [unconfirmed transactions](https://www.blockchain.com/btc/unconfirmed-transactions) are in `mempool`
     * The mempool may differ from node-to-node
@@ -66,6 +67,7 @@ https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understandin
     * The block reward is a combination of the block subsidy (newly minted bitcoin) and all transaction fees paid by transactions in a block. The block reward is collected by miners in the coinbase transaction.
 * Why no smart contract? smart contract is new, it is designed to be money system, no need to have smart contract
 * BIP (Bitcoin Improvement Proposal)
+  * [Hard forking or soft forking](https://www.bitpanda.com/academy/en/lessons/how-do-hard-and-soft-forks-work/) might happen
 * BTC uses `SHA-256` and LTC\DOGE uses `Scrypt` as hash algorithm
   * With `SHA-256`, you need only computing power to run the algorithm
   * `Scrypt` uses not only computing power but also memory
