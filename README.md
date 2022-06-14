@@ -45,15 +45,3 @@ https://jlptstudy.net/
 # page
 77c9Ws1u7nRva6efUsdW2n
 
-
-# License Key design
-* similar to CD keys
-* AIP key
-* Account/pwd Auth
-
-## License Key Ref
-https://medium.com/swlh/api-keys-whats-the-point-8f58d7966f9  
-https://www.carbondesignsystem.com/community/patterns/generate-an-api-key/
-https://stackoverflow.com/questions/3002067/how-are-software-license-keys-generated  
-https://www.licenturion.com/xp/fully-licensed-wpa.txt  
-
