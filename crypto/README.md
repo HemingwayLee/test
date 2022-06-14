@@ -1,4 +1,13 @@
+# Blockchain
+* [The last mile of blockchain](
+https://www.datadriveninvestor.com/2019/04/26/the-last-mile-problem-understanding-the-economics-affecting-the-future-of-blockchain/)
+* [What blockchain can do](https://hbr.org/2018/06/what-blockchain-cant-do)
+* [Coin heatmap](https://coin360.com/)
+
 ## BTC
+* [fixed supply](https://cryptoli.st/lists/fixed-supply)  
+* How to have limited amount of BTC (in its protocol, in the config file, and the config file is hashed)
+* [Mining](https://developer.bitcoin.org/devguide/mining.html) does not have to get `full node` (e.g., `bitcoin core`, and `bitcoind`)
   * What does a miner do?
     * Solo Mining
     * Pool Mining (can [fixed Selfish Mining issue](https://eprint.iacr.org/2019/486.pdf))
@@ -20,6 +29,7 @@
   * How does fee comes from? 
     * COINBASE (Newly Generated Coins) transaction is the first transaction in a block. It is a unique type of bitcoin transaction.
     * The block reward is a combination of the block subsidy (newly minted bitcoin) and all transaction fees paid by transactions in a block. The block reward is collected by miners in the coinbase transaction.
+* Why no smart contract? smart contract is new, it is designed to be money system, no need to have smart contract
 * BIP (Bitcoin Improvement Proposal)
   * [Hard forking or soft forking](https://www.bitpanda.com/academy/en/lessons/how-do-hard-and-soft-forks-work/) might happen
 * BTC uses `SHA-256` and LTC\DOGE uses `Scrypt` as hash algorithm
@@ -33,9 +43,11 @@
 ## ETH
 * [ETH switch to PoS](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/) on 2021
   * In PoS, validators explicitly stake capital in the form of ether. This staked ether then acts as collateral that can be destroyed if the validator behaves dishonestly or lazily
+* Explain [transaction](https://ethereum.org/en/developers/docs/transactions/)
 * ERC (Ethereum request for comment)
   * [ERC-20 doc](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
   * [ERC-721 Validator](https://erc721validator.org/)
+  * How to find all ERC721 compliant NFTs owned by an address? [stackoverflow](https://ethereum.stackexchange.com/questions/98233/how-to-find-all-erc721-compliant-nfts-owned-by-an-address-web3-js)
 
 ## BCH
 * The block size is too small, BTC soluiton is `Segwit`
@@ -58,3 +70,10 @@
 
 ## MultiChain (Private, Permissioned)
 * Based on Bitcoin blockchain (but enhanced)
+
+## 51% attack
+* double spending
+
+## NFT
+* NFT wallet
+* Trading platform
