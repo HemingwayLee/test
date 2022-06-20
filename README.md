@@ -37,7 +37,10 @@ python3 manage.py loaddata init_template.json
 * Pandas always has index, if you dont need it, set it to false
 
 # Google SEO
-Budget on each website -> do not crawl this page...
+* How it works
+  * Budget on each website -> do not crawl this page...
+* [Open source alternative](https://opensource.com/article/18/1/top-5-open-source-analytics-tools)
+  * Matomo 
 
 # Learn Japanese NLP
 https://jlptstudy.net/
