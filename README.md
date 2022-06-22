@@ -14,6 +14,9 @@ https://paperswithcode.com/
   * Token Auth for Restful API, should the token be periodically changed?
   * Single page apps, auth token management and browser refreshes
   * Why is `Bearer` required before the token in `Authorization` header
+  * RSA has a length issue
+  * You can [get public key from private key in most of libraries](https://security.stackexchange.com/questions/172274/can-i-get-a-public-key-from-an-rsa-private-key)
+    * [implementation](https://gist.github.com/marnix135/582c78891b29186ba4c6882a4bc62822)
 * nginx
   * nested locations in nginx
   * multiple location
