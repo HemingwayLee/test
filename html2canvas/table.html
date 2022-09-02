@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hello Table</title>
+  <meta charset="utf-8" />
+  <script src="html2canvas.js"></script>
+  <script>
+  function convert() {
+    html2canvas(document.querySelector("#capture")).then(canvas => {
+      document.body.appendChild(canvas)
+    });
+  }
+
+  function addOutline() {
+    let span = document.querySelector("span")
+    span.style.border = "solid #FF0000";
+
+    var rect = span.getBoundingClientRect();
+    console.log(rect.top, rect.right, rect.bottom, rect.left);
+  }
+  </script>
+</head>
+<body>
+  <span>This is a span tag</span>
+  <hr>
+  <table id="capture" border="1">
+    <thead>
+      <tr>
+        <td>Name</td><td>2016</td><td>2017</td><td>2018</td><td>2019</td><td>2020</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>按田餃子</td><td>BG</td><td>BG</td><td>BG</td><td>BG</td><td>BG</td>
+      </tr>
+      <tr>
+        <td>豚八戒</td><td>BG</td><td>BG</td><td>BG</td><td>BG</td><td>BG</td>
+      </tr>
+      <tr>
+        <td>您好</td><td>BG</td><td>BG</td><td>BG</td><td>BG</td><td>BG</td>
+      </tr>
+      <tr>
+        <td>池尻餃子</td><td></td><td></td><td>BG</td><td>BG</td><td></td>
+      </tr>
+      <tr>
+        <td>餃子の王さま</td><td></td><td></td><td>BG</td><td>BG</td><td>BG</td>
+      </tr>
+      <tr>
+        <td>おけ以</td><td></td><td></td><td>BG</td><td>BG</td><td>BG</td>
+      </tr>
+      <tr>
+        <td>ギョウザ マニア (GYOZA MANIA)</td><td></td><td></td><td></td><td>BG</td><td></td>
+      </tr>
+      <tr>
+        <td>丸山餃子製作所</td><td></td><td></td><td></td><td>BG</td><td>BG</td>
+      </tr>
+    </tbody>
+  </table>
+  <input type="button" onclick="convert();" value="Convert Table to img" style="font-size: 20px; -webkit-appearance: button;"></input>
+  <input type="button" onclick="addOutline();" value="Add border 2 span tag" style="font-size: 20px; -webkit-appearance: button;"></input>
+  <hr>
+</body>
+</html>
+
+
