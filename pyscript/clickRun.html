@@ -4,12 +4,22 @@
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
   </head>
   <body>
-    <button id="thebuttonid" type="button" py-onClick="speak">run Python</button>
+    <button id="thebuttonid" type="button">run Python</button>
     <div id="display"></div>
     <py-script>
-    def speak(*args, **kwargs):
-        print("speak!!")
-        # Element('display').write("Hello")
+      from js import document 
+      from pyodide import create_proxy
+      
+      def runPython(*args, **kwargs):
+          print("speak!!")
+            
+          element = js.document.createElement('h1')
+          element.innerText = "Hello"
+          js.document.getElementById("display").append(element)
+      
+      function_proxy = create_proxy(runPython)
+      
+      js.document.getElementById("thebuttonid").addEventListener("click", function_proxy)
     </py-script>
   </body>
 </html>
