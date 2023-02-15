@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+    svg {
+      background: #1A1A1A;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+    (function() {
+      var width = 800, height = 600;
+      
+      var svg = d3.select("#chart")
+        .append("svg")
+        .attr("height", height)
+        .attr("width", width)
+        .append("g")
+        .attr("transform", "translate(0,0)");
+
+      var radiusScale = d3.scaleSqrt().domain([1, 250000]).range([1, 75]);
+      
+      var forceXSplit = d3.forceX(function(d) {
+        if (d.country === "中國" || d.country === "美國" || d.country === "台灣") {
+          return (width * .30);
+        } else {
+          return (width * .70);
+        }
+      }).strength(0.15);
+
+      var forceXCombine = d3.forceX((width)/2).strength(0.1);
+
+      var forceCollide = d3.forceCollide(function(d) {
+        return radiusScale(d.revenue) + 1;
+      })
+
+      var simulation = d3.forceSimulation()
+        .force("x", forceXCombine)
+        .force("y", d3.forceY(height / 2).strength(0.09))
+        .force("collide", forceCollide)  
+
+      var tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "20")
+        .style("visibility", "hidden")
+        .style("color", "white")
+        .style("padding", "8px")
+        .style("background-color", "rgba(0, 0, 0, 0.75)")
+        .style("border-radius", "6px")
+        .style("font", "12px sans-serif")
+        .text("");  
+
+      const datapoints = [
+        {
+            "country": "美國",
+            "company": "蘋果",
+            "revenue": "229234"
+        },
+        {
+            "country": "美國",
+            "company": "柏克夏",
+            "revenue": "242137"
+        },
+        {
+            "country": "日本",
+            "company": "三菱商事",
+            "revenue": "68301.4"
+        },
+        {
+            "country": "日本",
+            "company": "丸紅",
+            "revenue": "68057.2"
+        },
+        {
+            "country": "日本",
+            "company": "三井住友",
+            "revenue": "52026"
+        },
+        {
+            "country": "日本",
+            "company": "伊藤忠商事",
+            "revenue": "49732.4"
+        },
+        {
+            "country": "日本",
+            "company": "三井物產",
+            "revenue": "44155.3"
+        },
+        {
+            "country": "日本",
+            "company": "住友商事",
+            "revenue": "43570.2"
+        },
+        {
+            "country": "台灣",
+            "company": "台積電",
+            "revenue": "32126.4"
+        },
+        {
+            "country": "日本",
+            "company": "瑞穗金融",
+            "revenue": "32141.8"
+        },
+        {
+            "country": "日本",
+            "company": "三菱日聯金融",
+            "revenue": "54768.8"
+        },
+        {
+            "country": "台灣",
+            "company": "富邦金控",
+            "revenue": "24688.3"
+        },
+        {
+            "country": "台灣",
+            "company": "國泰人壽",
+            "revenue": "28804.5"
+        },
+        {
+            "country": "台灣",
+            "company": "緯創",
+            "revenue": "27480"
+        },
+        {
+            "country": "美國",
+            "company": "微軟",
+            "revenue": "85320"
+        },
+        {
+            "country": "美國",
+            "company": "Google",
+            "revenue": "90272"
+        },
+        {
+            "country": "美國",
+            "company": "Facebook",
+            "revenue": "40653"
+        },
+        {
+            "country": "美國",
+            "company": "亞馬遜",
+            "revenue": "177866"
+        },
+        {
+            "country": "中國",
+            "company": "騰訊",
+            "revenue": "35178.8"
+        },
+        {
+            "country": "中國",
+            "company": "阿里巴巴",
+            "revenue": "37770.8"
+        },
+        {
+            "country": "中國",
+            "company": "百度",
+            "revenue": "15817.6"
+        },
+        {
+            "country": "日本",
+            "company": "樂天",
+            "revenue": "7528.2"
+        }
+      ];
+
+      var circles = svg.selectAll(".bubble")
+        .data(datapoints)
+        .enter().append("circle")
+        .attr("class", "bubble")
+        .attr("r", function(d) {
+          return radiusScale(d.revenue)
+        })
+        .style("fill", function(d) { 
+          var returnColor = null;
+          if (d.country === "美國") { 
+            returnColor = "#4e89ae";
+          } else if (d.country === "日本") {
+            returnColor = "#ed6663";
+          } else if (d.country === "台灣") {
+            returnColor = "#43658b";
+          } else if (d.country === "中國") {
+            returnColor = "#ffa372";
+          }
+          
+          return returnColor;
+        })
+        .on("mouseover", function(d) {
+          tooltip.html(d.company + "<br><br> 營收: " + d.revenue);
+          tooltip.style("visibility", "visible");
+        })
+        .on("mousemove", function() {
+          return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+        })
+        .on("mouseout", function() {
+          return tooltip.style("visibility", "hidden");
+        });
+
+      var labels = svg.selectAll('.label')
+        .data(datapoints)
+        .enter()
+        .append('text')
+        .attr('class', 'label')
+        .style('fill', 'white')
+        .style('font', '12px sans-serif')
+        .text(node => node.company);
+
+      var atRight = true;
+      var rect = svg.append("rect")
+        .attr("x", 10)
+        .attr("y", 10)
+        .attr("rx", 22)
+        .attr("ry", 22)
+        .style("fill", "lightgray")
+        .attr("width", 64)
+        .attr("height", 40)
+        .on("click", function() {
+          if (atRight === true) {
+            simulation.force("x", forceXSplit).alphaTarget(0.2).force("collide", forceCollide);
+
+            setAtRight(!atRight);
+          } else {
+            simulation.force("x", forceXCombine).alphaTarget(0.07);
+            
+            setAtRight(!atRight);
+          }  
+        });
+
+      var circle = svg.append("circle")
+        .attr("cx", 30)
+        .attr("cy", 30)
+        .attr("r", 16)
+        .style("fill", "white")
+        .on("click", function() {
+          if (atRight === true) {
+            simulation.restart()
+              .force("x", forceXSplit)
+              .alphaTarget(0.2)
+              .force("collide", forceCollide);
+
+            setAtRight(!atRight);
+          } else {
+            simulation.restart()
+              .force("x", forceXCombine)
+              .alphaTarget(0.2);
+
+            setAtRight(!atRight);
+          }  
+        });
+
+      var setAtRight = function(newValue) {
+        atRight = newValue;
+        circle.transition()
+          .duration(250)
+          .attr("cx", (atRight? (30) : (54)))
+          .style("fill", "white");
+        
+        rect.transition()
+          .duration(250)
+          .style("fill", atRight? "lightgray" : "#C06C84");  
+      };
+
+      simulation.nodes(datapoints).on('tick', function() {
+        circles
+          .attr("cx", function(d) { return d.x })
+          .attr("cy", function(d) { return d.y });
+        
+        labels
+          .attr("dx", function(d) { return d.x })
+          .attr("dy", function(d) { return d.y })
+          .attr("text-anchor", "middle");
+      });
+
+    })();
+    </script>
+  </body>
+</html>  

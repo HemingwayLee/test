@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+    svg {
+      background: #1A1A1A;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+    (function() {
+      var width = 800, height = 600;
+      
+      var svg = d3.select("#chart")
+        .append("svg")
+        .attr("height", height)
+        .attr("width", width)
+        .append("g")
+        .attr("transform", "translate(0,0)");
+
+      var radiusScale = d3.scaleSqrt().domain([1, 250000]).range([1, 75]);
+      
+      var forceXSplit = d3.forceX(function(d) {
+        if (d.country === "中國" || d.country === "美國" || d.country === "台灣") {
+          return (width * .30);
+        } else {
+          return (width * .70);
+        }
+      }).strength(0.15);
+
+      var forceXCombine = d3.forceX((width)/2).strength(0.1);
+
+      var forceCollide = d3.forceCollide(function(d) {
+        return radiusScale(d.revenue) + 1;
+      })
+
+      var simulation = d3.forceSimulation()
+        .force("x", forceXCombine)
+        .force("y", d3.forceY(height / 2).strength(0.09))
+        .force("collide", forceCollide)  
+
+      var tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "20")
+        .style("visibility", "hidden")
+        .style("color", "white")
+        .style("padding", "8px")
+        .style("background-color", "rgba(0, 0, 0, 0.75)")
+        .style("border-radius", "6px")
+        .style("font", "12px sans-serif")
+        .text("");  
+
+      d3.queue()
+        .defer(d3.csv, "data.csv")
+        .await(ready)
+
+      function ready (error, datapoints) {
+        var circles = svg.selectAll(".bubble")
+          .data(datapoints)
+          .enter().append("circle")
+          .attr("class", "bubble")
+          .attr("r", function(d) {
+            return radiusScale(d.revenue)
+          })
+          .style("fill", function(d) { 
+            var returnColor = null;
+            if (d.country === "美國") { 
+              returnColor = "#4e89ae";
+            } else if (d.country === "日本") {
+              returnColor = "#ed6663";
+            } else if (d.country === "台灣") {
+              returnColor = "#43658b";
+            } else if (d.country === "中國") {
+              returnColor = "#ffa372";
+            }
+            
+            return returnColor;
+          })
+          .on("mouseover", function(d) {
+            tooltip.html(d.company + "<br><br> 營收: " + d.revenue);
+            tooltip.style("visibility", "visible");
+          })
+          .on("mousemove", function() {
+            return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+          })
+          .on("mouseout", function() {
+            return tooltip.style("visibility", "hidden");
+          });
+
+        var labels = svg.selectAll('.label')
+          .data(datapoints)
+          .enter()
+          .append('text')
+          .attr('class', 'label')
+          .style('fill', 'white')
+          .style('font', '12px sans-serif')
+          .text(node => node.company);
+
+        var atRight = true;
+        var rect = svg.append("rect")
+          .attr("x", 10)
+          .attr("y", 10)
+          .attr("rx", 22)
+          .attr("ry", 22)
+          .style("fill", "lightgray")
+          .attr("width", 64)
+          .attr("height", 40)
+          .on("click", function() {
+            if (atRight === true) {
+              simulation.force("x", forceXSplit).alphaTarget(0.2).force("collide", forceCollide);
+
+              setAtRight(!atRight);
+            } else {
+              simulation.force("x", forceXCombine).alphaTarget(0.07);
+              
+              setAtRight(!atRight);
+            }  
+          });
+
+        var circle = svg.append("circle")
+          .attr("cx", 30)
+          .attr("cy", 30)
+          .attr("r", 16)
+          .style("fill", "white")
+          .on("click", function() {
+            if (atRight === true) {
+              simulation.restart()
+                .force("x", forceXSplit)
+                .alphaTarget(0.2)
+                .force("collide", forceCollide);
+
+              setAtRight(!atRight);
+            } else {
+              simulation.restart()
+                .force("x", forceXCombine)
+                .alphaTarget(0.2);
+
+              setAtRight(!atRight);
+            }  
+          });
+
+        var setAtRight = function(newValue) {
+          atRight = newValue;
+          circle.transition()
+            .duration(250)
+            .attr("cx", (atRight? (30) : (54)))
+            .style("fill", "white");
+          
+          rect.transition()
+            .duration(250)
+            .style("fill", atRight? "lightgray" : "#C06C84");  
+        };
+
+        simulation.nodes(datapoints).on('tick', function() {
+          circles
+            .attr("cx", function(d) { return d.x })
+            .attr("cy", function(d) { return d.y });
+          
+          labels
+            .attr("dx", function(d) { return d.x })
+            .attr("dy", function(d) { return d.y })
+            .attr("text-anchor", "middle");
+        });
+      }
+    })();
+    </script>
+  </body>
+</html>  
