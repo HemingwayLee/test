@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     /*Add font-size and/or height to make scroll move lots.*/
@@ -129,48 +130,26 @@
 
     <div class="col-sm-8 main">
       <div>
-        <!-- <table style="margin: 0 auto" class="table table-striped">
-          <tbody>
-            <tr>
-              <td>
-                <table class="center">
-                  <tbody>
-                    <tr>
-                      <td>AA</td><td>AA</td><td>AA</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <table class="center">
-                <tbody>
-                  <tr>
-                    <td>AA</td><td>AA</td><td>AA</td>
-                  </tr>
-                </tbody>
-              </table>
-            </tr>
-          </tbody>
-        </table> -->
       </div>
-      <div>
-        <table>
+      <div style="padding: 25px;">
+        <table style="margin-left: 125px;">
           <tbody>
             <tr>
-              <td>AA</td><td>AA</td><td>AA</td>
+              <td style="vertical-align: top;">AA</td><td style="font-size: 16px; padding-left: 25px; width: 750px;" id="question"></td><td></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div style="background-color: #F7F7F8;">
-        <table>
+      <div style="padding: 25px; background-color: #F7F7F8;">
+        <table style="margin-left: 125px;">
           <tbody>
             <tr>
-              <td>BB</td><td>BB</td><td>BB</td>
+              <td style="vertical-align: top;">BB</td><td style="font-size: 16px; padding-left: 25px; width: 750px;" id="answer"></td><td><!--<i style="margin: 5px;"  class="fa-regular fa-thumbs-up"></i><i style="margin: 5px;" class="fa-regular fa-thumbs-down"></i>--></td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div id="app">
       </div>
       <div class="footer">
         <div class="fake-border">
@@ -188,7 +167,18 @@
 </div>
 <script>
   function doChat() {
+    $("#question").text($("#inputTxt").val())
     $("#inputTxt").val("");
+
+    var app = document.getElementById('answer');
+    var typewriter = new Typewriter(app, {
+      cursor: '█'
+    });
+
+    const answer = '種植南瓜的一般步驟如下：<br>準備土壤：南瓜喜好排水良好、富含有機質的土壤，可以添加堆肥或腐葉土改善土壤質地。此外，南瓜需要充足的陽光和充足的水分，選擇開闊、日照充足的地方進行種植。<br>準備種子：選擇健康、完整的南瓜種子，可在播種前進行發芽處理，提高發芽率。<br>播種：將南瓜種子均勻撒在土壤表面，再用土壤輕輕覆蓋種子。<br>管理生長：南瓜的生長速度很快，每天需要充足的陽光和水分。在南瓜初期，需保持土壤濕潤，避免過度乾燥。南瓜的蔓延性較強，需要在生長過程中定期剪除無用的蔓枝，讓植株集中營養和能量，促進果實的生長。另外，可定期施肥，例如在花開後和果實形成期間施用高磷肥料，有利於果實的生長和成熟。<br>防治病蟲害：南瓜易受到病蟲害的影響，如白粉病、黑點病、蚜蟲等，需定期進行病蟲害防治。<br>收穫：南瓜在生長期為100-120天左右，果實長成後可進行收穫。南瓜成熟後，果柄上會出現龜裂和變色現象，此時可用剪刀將果實剪斷，並保留3-4公分的果柄。<br>';
+    typewriter.typeString(answer)
+      .pauseFor(2500)
+      .start();
   }
 
   $(document).keypress(function(e){
