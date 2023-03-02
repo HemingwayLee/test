@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Fake ChatGPT GUI</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -22,33 +22,83 @@
       background-color: #202123;
       color: #C2D5E3;
       height: 100%;
-      width: 250px;
+      width: 300px;
       position: fixed;
       padding-top: 20px;
     }
     
     .main {
-      margin-left:250px; /*must be the same width as sidenav is*/
+      margin-left: 288px; /*must be the same width as sidenav is*/
+      width: 100%;
     }
    
     /* Set black background color, white text and some padding */
     .footer {
       position: fixed;
-      bottom: 0;
-      width: 80%;
-      text-align: center;
+      left: 320px;
+      bottom: 20px;
+      /* width: 80%; */
     }
 
-    .nav-pills > li > a, .nav-pills > li > a:focus {
+    .nav-pills > li.active > a {
       background-color: #202123;
-      color: #C2D5E3;
+      border: solid #EDEBE5 1px;
+    }
+
+    .nav-pills > li.active > a:hover {
+      background-color: #343541;
+      border: solid #EDEBE5 1px;
+    }
+
+    .nav-pills > li > a, 
+    .nav-pills > li > a:focus {
+      margin: 5px;
+      font-size: 18px;
+      background-color: #202123;
+      color: #EDEBE5;
     }
 
     .nav-pills > li > a:hover {
+      margin: 5px;
+      font-size: 18px;
       background-color: #343541;
-      color: #C2D5E3;
+      color: #EDEBE5;
     }
-    
+
+    .label-warning {
+      background-color: #FAE69E;
+      color: #333752;
+    }
+
+    input[type=text]{
+      box-shadow: inset 0px 0px 0px 0px;
+      border: none;
+      font-size: 24px;
+      margin: 10px;
+    }
+
+    input[type=text]:focus {
+      box-shadow: inset 0px 0px 0px 0px;
+      border: none;
+      outline: none;
+    }
+
+    .fake-border {
+      width: 750px;
+      border-radius: 8px; 
+      /* border-width: 1px; */
+      /* border-color: #202123; */
+      /* border-style: solid; */
+      box-shadow: 0 1px 1px rgba(20, 21, 23, 0.075) inset, 0 0 8px rgba(20, 21, 23, 0.6);
+      outline: 0 none;
+      margin: 0 auto;
+    }
+
+    table.center {
+      margin-left: auto; 
+      margin-right: auto;
+    }
+
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
@@ -62,21 +112,90 @@
 
 <div class="container-fluid">
   <div class="row content">
-    <nav class="col-sm-3 sidenav">
+    <nav class="col-sm-4 sidenav">
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#section1"><i class="fa-regular fa-message"></i> Food</a></li>
-        <li><a href="#section2"><i class="fa-regular fa-message"></i> Officially Blogging</a></li>
-        <li><a href="#section3"><i class="fa-regular fa-message"></i> Comments</a></li>
-        <li><a href="#section4"><i class="fa-regular fa-message"></i> Photos</a></li>
+        <li class="active"><a href="#section0"><i style="margin-right: 5px;" class="fa-regular fa-plus"></i> New Chat</a></li>
+        <li><a href="#section1"><i style="margin-right: 5px;" class="fa-regular fa-message"></i> New Chat</a></li>
+      </ul>
+      
+      <ul class="nav nav-pills nav-stacked" style="position: absolute; bottom: 10px;">
+        <hr>
+        <li><a href="#section2"><i style="margin-right: 5px;" class="fa-regular fa-trash-can"></i> Clear Conversations</a></li>
+        <li><a href="#section3"><i style="margin-right: 5px;" class="fa-regular fa-user"></i> Upgrade to Plus <span class="label label-warning label-as-badge">NEW</span></a></li>
+        <li><a href="#section4"><i style="margin-right: 5px;" class="fa-solid fa-up-right-from-square"></i> Update & FAQ</a></li>
+        <li><a href="#section5"><i style="margin-right: 5px;" class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
     </nav>
 
-    <div class="col-sm-9 main">
+    <div class="col-sm-8 main">
+      <div>
+        <!-- <table style="margin: 0 auto" class="table table-striped">
+          <tbody>
+            <tr>
+              <td>
+                <table class="center">
+                  <tbody>
+                    <tr>
+                      <td>AA</td><td>AA</td><td>AA</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <table class="center">
+                <tbody>
+                  <tr>
+                    <td>AA</td><td>AA</td><td>AA</td>
+                  </tr>
+                </tbody>
+              </table>
+            </tr>
+          </tbody>
+        </table> -->
+      </div>
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td>AA</td><td>AA</td><td>AA</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="background-color: #F7F7F8;">
+        <table>
+          <tbody>
+            <tr>
+              <td>BB</td><td>BB</td><td>BB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="footer">
-        <textarea class="form-control" rows="3" required></textarea>
+        <div class="fake-border">
+          <div class="input-group">
+            <input id="inputTxt" style="margin: 0 auto" type="text" class="form-control" />
+            <span style="background-color: white;" class="input-group-addon">
+              <Button id="chat" onclick="doChat();" style="border: none; background-color: white;"><i class="fa-regular fa-paper-plane"></i></Button>
+            </span>
+          </div>
+        </div>
+        <p style="margin: 5px; padding: 5px;"><u>ChatGPT Feb 13 Version</u>. Free Research Preview. Our goal is to make AI systems more natural and safe to interact with. Your feedback will help us improve.</p>
       </div>
     </div>
   </div>
 </div>
+<script>
+  function doChat() {
+    $("#inputTxt").val("");
+  }
+
+  $(document).keypress(function(e){
+    if (e.which == 13){
+      $("#chat").click();
+    }
+  });
+</script>
 </body>
 </html>
