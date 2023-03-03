@@ -87,9 +87,6 @@
     .fake-border {
       width: 750px;
       border-radius: 8px; 
-      /* border-width: 1px; */
-      /* border-color: #202123; */
-      /* border-style: solid; */
       box-shadow: 0 1px 1px rgba(20, 21, 23, 0.075) inset, 0 0 8px rgba(20, 21, 23, 0.6);
       outline: 0 none;
       margin: 0 auto;
@@ -115,16 +112,18 @@
   <div class="row content">
     <nav class="col-sm-4 sidenav">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#section0"><i style="margin-right: 5px;" class="fa-regular fa-plus"></i> New Chat</a></li>
-        <li><a href="#section1"><i style="margin-right: 5px;" class="fa-regular fa-message"></i> New Chat</a></li>
+        <li class="active"><a href="#"><i style="margin-right: 5px;" class="fa-regular fa-plus"></i> New Chat</a></li>
+        <li><a href="#"><i style="margin-right: 5px;" class="fa-regular fa-message"></i> New Chat</a></li>
+        <li><a href="#"><i style="margin-right: 5px;" class="fa-regular fa-message"></i> 阿星種植</a></li>
+        <li><a href="#"><i style="margin-right: 5px;" class="fa-regular fa-message"></i> 瑞星的一畝田</a></li>
       </ul>
       
       <ul class="nav nav-pills nav-stacked" style="position: absolute; bottom: 10px;">
         <hr>
-        <li><a href="#section2"><i style="margin-right: 5px;" class="fa-regular fa-trash-can"></i> Clear Conversations</a></li>
-        <li><a href="#section3"><i style="margin-right: 5px;" class="fa-regular fa-user"></i> Upgrade to Plus <span class="label label-warning label-as-badge">NEW</span></a></li>
-        <li><a href="#section4"><i style="margin-right: 5px;" class="fa-solid fa-up-right-from-square"></i> Update & FAQ</a></li>
-        <li><a href="#section5"><i style="margin-right: 5px;" class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        <li><a href="#"><i style="margin-right: 5px;" class="fa-regular fa-trash-can"></i> Clear Conversations</a></li>
+        <li><a href="#"><i style="margin-right: 5px;" class="fa-regular fa-user"></i> Upgrade to Plus <span class="label label-warning label-as-badge">NEW</span></a></li>
+        <li><a href="#"><i style="margin-right: 5px;" class="fa-solid fa-up-right-from-square"></i> Update & FAQ</a></li>
+        <li><a href="#"><i style="margin-right: 5px;" class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
     </nav>
 
@@ -132,26 +131,29 @@
       <div>
       </div>
       <div style="padding: 25px;">
-        <table style="margin-left: 125px;">
+        <table style="margin-left: 90px;">
           <tbody>
             <tr>
-              <td style="vertical-align: top;">AA</td><td style="font-size: 16px; padding-left: 25px; width: 750px;" id="question"></td><td></td>
+              <td style="vertical-align: top;"><img width="45px;" src="./img/ashin.jpeg"></img></td>
+              <td style="font-size: 24px; padding-left: 25px; width: 800px;" id="question"></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
       </div>
       <div style="padding: 25px; background-color: #F7F7F8;">
-        <table style="margin-left: 125px;">
+        <table style="margin-left: 90px;">
           <tbody>
             <tr>
-              <td style="vertical-align: top;">BB</td><td style="font-size: 16px; padding-left: 25px; width: 750px;" id="answer"></td><td><!--<i style="margin: 5px;"  class="fa-regular fa-thumbs-up"></i><i style="margin: 5px;" class="fa-regular fa-thumbs-down"></i>--></td>
+              <td style="vertical-align: top;"><img width="45px;" src="./img/openai.png"></img></td>
+              <td style="font-size: 24px; padding-left: 25px; width: 800px;" id="answer"></td>
+              <td><!--<i style="margin: 5px;"  class="fa-regular fa-thumbs-up"></i><i style="margin: 5px;" class="fa-regular fa-thumbs-down"></i>--></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div id="app">
-      </div>
       <div class="footer">
+        <button style="margin-left: 400px; margin-bottom: 10px;" class="btn btn-default"><i class="fa-solid fa-repeat"></i> Regenerate response</button>
         <div class="fake-border">
           <div class="input-group">
             <input id="inputTxt" style="margin: 0 auto" type="text" class="form-control" />
@@ -166,19 +168,25 @@
   </div>
 </div>
 <script>
+  const qa = {
+    '南瓜怎麼種？': '種植南瓜的一般步驟如下：<br>&emsp;1. 準備土壤：南瓜喜好排水良好、富含有機質的土壤，可以添加堆肥或 &emsp; 腐葉土改善土壤質地。此外，南瓜需要充足的陽光和充足的水分，選擇 &emsp; 開闊、日照充足的地方進行種植。<br>&emsp;2. 準備種子：選擇健康、完整的南瓜種子，可在播種前進行發芽處理， &emsp; 提高發芽率。<br>&emsp;3. 播種：將南瓜種子均勻撒在土壤表面，再用土壤輕輕覆蓋種子。<br>&emsp;4. 管理生長：南瓜的生長速度很快，每天需要充足的陽光和水分。在南 &emsp; 瓜初期，需保持土壤濕潤，避免過度乾燥。南瓜的蔓延性較強，需要在 &emsp; 生長過程中定期剪除無用的蔓枝，讓植株集中營養和能量，促進果實的 &emsp; 生長。另外，可定期施肥，例如在花開後和果實形成期間施用高磷肥料 &emsp; ，有利於果實的生長和成熟。<br>&emsp;5. 防治病蟲害：南瓜易受到病蟲害的影響，如白粉病、黑點病、蚜蟲等 &emsp; ，需定期進行病蟲害防治。<br>&emsp;6. 收穫：南瓜在生長期為100-120天左右，果實長成後可進行收穫。南 &emsp; 瓜成熟後，果柄上會出現龜裂和變色現象，此時可用剪刀將果實剪斷， &emsp; 並保留3-4公分的果柄。'
+  };
+
+  $("#inputTxt").focus();
+
   function doChat() {
-    $("#question").text($("#inputTxt").val())
+    const qest = $("#inputTxt").val();
+    $("#question").text(qest)
     $("#inputTxt").val("");
 
     var app = document.getElementById('answer');
     var typewriter = new Typewriter(app, {
-      cursor: '█'
+      cursor: '█',
+      delay: '50'
     });
 
-    const answer = '種植南瓜的一般步驟如下：<br>準備土壤：南瓜喜好排水良好、富含有機質的土壤，可以添加堆肥或腐葉土改善土壤質地。此外，南瓜需要充足的陽光和充足的水分，選擇開闊、日照充足的地方進行種植。<br>準備種子：選擇健康、完整的南瓜種子，可在播種前進行發芽處理，提高發芽率。<br>播種：將南瓜種子均勻撒在土壤表面，再用土壤輕輕覆蓋種子。<br>管理生長：南瓜的生長速度很快，每天需要充足的陽光和水分。在南瓜初期，需保持土壤濕潤，避免過度乾燥。南瓜的蔓延性較強，需要在生長過程中定期剪除無用的蔓枝，讓植株集中營養和能量，促進果實的生長。另外，可定期施肥，例如在花開後和果實形成期間施用高磷肥料，有利於果實的生長和成熟。<br>防治病蟲害：南瓜易受到病蟲害的影響，如白粉病、黑點病、蚜蟲等，需定期進行病蟲害防治。<br>收穫：南瓜在生長期為100-120天左右，果實長成後可進行收穫。南瓜成熟後，果柄上會出現龜裂和變色現象，此時可用剪刀將果實剪斷，並保留3-4公分的果柄。<br>';
-    typewriter.typeString(answer)
-      .pauseFor(2500)
-      .start();
+    const answer = qa[qest];
+    typewriter.typeString(answer).pauseFor(2500).start();
   }
 
   $(document).keypress(function(e){
