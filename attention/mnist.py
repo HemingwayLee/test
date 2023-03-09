@@ -8,7 +8,12 @@ inputs = keras.Input(shape=input_shape)
 x = layers.Conv2D(32, kernel_size=(3, 3), activation="relu")(inputs)
 x = layers.MaxPooling2D(pool_size=(2, 2))(x)
 x = layers.Conv2D(64, kernel_size=(3, 3), activation="relu")(x)
-x = layers.MaxPooling2D(pool_size=(2, 2))(x)
+
+# Adding Attention Layer
+attention_probs = layers.Dense(64, activation='softmax')(x)
+attention_mul = layers.multiply([x, attention_probs])
+
+x = layers.MaxPooling2D(pool_size=(2, 2))(attention_mul)
 x = layers.Flatten()(x)
 x = layers.Dropout(0.5)(x)
 outputs = layers.Dense(num_classes, activation="softmax")(x)
@@ -16,5 +21,4 @@ outputs = layers.Dense(num_classes, activation="softmax")(x)
 model = keras.Model(inputs=inputs, outputs=outputs)
 
 model.summary()
-
 
