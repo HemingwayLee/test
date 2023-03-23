@@ -21,9 +21,11 @@ This research can be considered as a descendant and an improvement of ["Squeeze-
   <img src="https://github.com/kobiso/CBAM-keras/blob/master/figures/submodule.png">
 </div>
 
-
+![sam](https://user-images.githubusercontent.com/8428372/227132284-0d26d090-c775-4489-a235-87b92c5daafa.png)
+![cam](https://user-images.githubusercontent.com/8428372/227132298-9fcc7c81-f458-4b77-8b45-ba1c9e0f88dc.png)
 
 ### Classification results on ImageNet-1K
+![data](https://user-images.githubusercontent.com/8428372/227132279-f65ae351-588b-4360-9b30-8dfad33910f0.png)
 * GFLOPs mean `10^9 Floating Point Operations Per Second`
 <div align="center">
   <img src="https://github.com/kobiso/CBAM-keras/blob/master/figures/exp4.png">
