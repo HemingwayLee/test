@@ -31,6 +31,8 @@ This research can be considered as a descendant and an improvement of ["Squeeze-
   <img src="https://github.com/kobiso/CBAM-keras/blob/master/figures/exp4.png">
 </div>
 
+![res](https://user-images.githubusercontent.com/8428372/227133143-05dd7630-fed7-4702-9e20-cd4f5987e3e1.png)
+
 <div align="center">
   <img src="https://github.com/kobiso/CBAM-keras/blob/master/figures/exp5.png"  width="750">
 </div>
