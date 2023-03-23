@@ -11,10 +11,17 @@ This research can be considered as a descendant and an improvement of ["Squeeze-
   <img src="https://github.com/kobiso/CBAM-keras/blob/master/figures/overview.png">
 </div>
 
+![explain](https://user-images.githubusercontent.com/8428372/227129861-489e1856-e23c-432a-b6a6-825423a182bc.png)
+
 ### Diagram of each attention sub-module
+
+![explain2](https://user-images.githubusercontent.com/8428372/227129948-24a41392-8c0f-4f44-9f8a-057ed3492426.png)
+
 <div align="center">
   <img src="https://github.com/kobiso/CBAM-keras/blob/master/figures/submodule.png">
 </div>
+
+
 
 ### Classification results on ImageNet-1K
 * GFLOPs mean `10^9 Floating Point Operations Per Second`
