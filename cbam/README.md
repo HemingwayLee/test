@@ -17,7 +17,7 @@ This research can be considered as a descendant and an improvement of ["Squeeze-
 </div>
 
 ### Classification results on ImageNet-1K
-* GFLOPS mean `10^9 Floating Point Operations Per Second`
+* GFLOPs mean `10^9 Floating Point Operations Per Second`
 <div align="center">
   <img src="https://github.com/kobiso/CBAM-keras/blob/master/figures/exp4.png">
 </div>
