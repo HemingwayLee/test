@@ -24,6 +24,75 @@ This research can be considered as a descendant and an improvement of ["Squeeze-
 ![sam](https://user-images.githubusercontent.com/8428372/227132284-0d26d090-c775-4489-a235-87b92c5daafa.png)
 ![cam](https://user-images.githubusercontent.com/8428372/227132298-9fcc7c81-f458-4b77-8b45-ba1c9e0f88dc.png)
 
+```python3
+from tensorflow.keras.layers import Flatten, Dense, Multiply, Activation
+from tensorflow.keras import backend as K
+
+def channel_gate(x, gate_channels, reduction_ratio=16, pool_types=['avg', 'max']):
+    channel_att_sum = None
+    for pool_type in pool_types:
+        if pool_type=='avg':
+            avg_pool = layers.AveragePooling2D(pool_size=(7, 7))(x)
+            channel_att_raw = Dense(gate_channels // reduction_ratio)(Flatten()(avg_pool))
+            channel_att_raw = Activation('relu')(channel_att_raw)
+            channel_att_raw = Dense(gate_channels)(channel_att_raw)
+        elif pool_type=='max':
+            max_pool = layers.MaxPooling2D(pool_size=(7, 7))(x)
+            channel_att_raw = Dense(gate_channels // reduction_ratio)(Flatten()(max_pool))
+            channel_att_raw = Activation('relu')(channel_att_raw)
+            channel_att_raw = Dense(gate_channels)(channel_att_raw)
+
+        if channel_att_sum is None:
+            channel_att_sum = channel_att_raw
+        else:
+            channel_att_sum += channel_att_raw
+
+    scale = Activation('sigmoid')(channel_att_sum) # broadcasting
+    return Multiply()([x, scale])
+```
+
+```python3
+class Flatten(nn.Module):
+    def forward(self, x):
+        return x.view(x.size(0), -1)
+
+class ChannelGate(nn.Module):
+    def __init__(self, gate_channels, reduction_ratio=16, pool_types=['avg', 'max']):
+        super(ChannelGate, self).__init__()
+        self.gate_channels = gate_channels
+        self.mlp = nn.Sequential(
+            Flatten(),
+            nn.Linear(gate_channels, gate_channels // reduction_ratio),
+            nn.ReLU(),
+            nn.Linear(gate_channels // reduction_ratio, gate_channels)
+            )
+        self.pool_types = pool_types
+    def forward(self, x):
+        channel_att_sum = None
+        for pool_type in self.pool_types:
+            if pool_type=='avg':
+                avg_pool = F.avg_pool2d( x, (x.size(2), x.size(3)), stride=(x.size(2), x.size(3)))
+                channel_att_raw = self.mlp( avg_pool )
+            elif pool_type=='max':
+                max_pool = F.max_pool2d( x, (x.size(2), x.size(3)), stride=(x.size(2), x.size(3)))
+                channel_att_raw = self.mlp( max_pool )
+            elif pool_type=='lp':
+                lp_pool = F.lp_pool2d( x, 2, (x.size(2), x.size(3)), stride=(x.size(2), x.size(3)))
+                channel_att_raw = self.mlp( lp_pool )
+            elif pool_type=='lse':
+                # LSE pool only
+                lse_pool = logsumexp_2d(x)
+                channel_att_raw = self.mlp( lse_pool )
+
+            if channel_att_sum is None:
+                channel_att_sum = channel_att_raw
+            else:
+                channel_att_sum = channel_att_sum + channel_att_raw
+
+        scale = F.sigmoid( channel_att_sum ).unsqueeze(2).unsqueeze(3).expand_as(x)
+        return x * scale
+```
+
 ### Classification results on ImageNet-1K
 ![data](https://user-images.githubusercontent.com/8428372/227132279-f65ae351-588b-4360-9b30-8dfad33910f0.png)
 * GFLOPs mean `10^9 Floating Point Operations Per Second`
