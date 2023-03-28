@@ -24,33 +24,7 @@ This research can be considered as a descendant and an improvement of ["Squeeze-
 ![sam](https://user-images.githubusercontent.com/8428372/227132284-0d26d090-c775-4489-a235-87b92c5daafa.png)
 ![cam](https://user-images.githubusercontent.com/8428372/227132298-9fcc7c81-f458-4b77-8b45-ba1c9e0f88dc.png)
 
-```python3
-from tensorflow.keras.layers import Flatten, Dense, Multiply, Activation
-from tensorflow.keras import backend as K
-
-def channel_gate(x, gate_channels, reduction_ratio=16, pool_types=['avg', 'max']):
-    channel_att_sum = None
-    for pool_type in pool_types:
-        if pool_type=='avg':
-            avg_pool = layers.AveragePooling2D(pool_size=(7, 7))(x)
-            channel_att_raw = Dense(gate_channels // reduction_ratio)(Flatten()(avg_pool))
-            channel_att_raw = Activation('relu')(channel_att_raw)
-            channel_att_raw = Dense(gate_channels)(channel_att_raw)
-        elif pool_type=='max':
-            max_pool = layers.MaxPooling2D(pool_size=(7, 7))(x)
-            channel_att_raw = Dense(gate_channels // reduction_ratio)(Flatten()(max_pool))
-            channel_att_raw = Activation('relu')(channel_att_raw)
-            channel_att_raw = Dense(gate_channels)(channel_att_raw)
-
-        if channel_att_sum is None:
-            channel_att_sum = channel_att_raw
-        else:
-            channel_att_sum += channel_att_raw
-
-    scale = Activation('sigmoid')(channel_att_sum) # broadcasting
-    return Multiply()([x, scale])
-```
-
+#### Channel Gate
 ```python3
 class Flatten(nn.Module):
     def forward(self, x):
@@ -91,6 +65,68 @@ class ChannelGate(nn.Module):
 
         scale = F.sigmoid( channel_att_sum ).unsqueeze(2).unsqueeze(3).expand_as(x)
         return x * scale
+```
+
+```python3
+from tensorflow.keras.layers import Flatten, Dense, Multiply, Activation
+from tensorflow.keras import backend as K
+
+def channel_gate(x, gate_channels, reduction_ratio=16, pool_types=['avg', 'max']):
+    channel_att_sum = None
+    for pool_type in pool_types:
+        if pool_type=='avg':
+            avg_pool = layers.AveragePooling2D(pool_size=(7, 7))(x)
+            channel_att_raw = Dense(gate_channels // reduction_ratio)(Flatten()(avg_pool))
+            channel_att_raw = Activation('relu')(channel_att_raw)
+            channel_att_raw = Dense(gate_channels)(channel_att_raw)
+        elif pool_type=='max':
+            max_pool = layers.MaxPooling2D(pool_size=(7, 7))(x)
+            channel_att_raw = Dense(gate_channels // reduction_ratio)(Flatten()(max_pool))
+            channel_att_raw = Activation('relu')(channel_att_raw)
+            channel_att_raw = Dense(gate_channels)(channel_att_raw)
+
+        if channel_att_sum is None:
+            channel_att_sum = channel_att_raw
+        else:
+            channel_att_sum += channel_att_raw
+
+    scale = Activation('sigmoid')(channel_att_sum) # broadcasting
+    return Multiply()([x, scale])
+```
+
+#### Spatial Gate
+```python3
+class ChannelPool(nn.Module):
+    def forward(self, x):
+        return torch.cat( (torch.max(x,1)[0].unsqueeze(1), torch.mean(x,1).unsqueeze(1)), dim=1 )
+
+class SpatialGate(nn.Module):
+    def __init__(self):
+        super(SpatialGate, self).__init__()
+        kernel_size = 7
+        self.compress = ChannelPool()
+        self.spatial = BasicConv(2, 1, kernel_size, stride=1, padding=(kernel_size-1) // 2, relu=False)
+    def forward(self, x):
+        x_compress = self.compress(x)
+        x_out = self.spatial(x_compress)
+        scale = F.sigmoid(x_out) # broadcasting
+        return x * scale
+```
+
+```python3
+import tensorflow as tf
+
+def channel_pool(x):
+    max_pool = tf.reduce_max(x, axis=-1, keepdims=True)
+    mean_pool = tf.reduce_mean(x, axis=-1, keepdims=True)
+    result = tf.concat([max_pool, mean_pool], axis=-1)
+    return result
+
+def spatial_gate(x):
+    x_compress = channel_pool(x)
+    x_out = layers.Conv2D(filters=1, kernel_size=(7, 7), strides=1, padding='same', activation=None)(x_compress)
+    scale = Activation('sigmoid')(x_out) # broadcasting
+    return Multiply()([x,scale])
 ```
 
 ### Classification results on ImageNet-1K
