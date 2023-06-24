@@ -1,0 +1,116 @@
+
+<head>
+  <script>    
+    function parseAscii(str) {
+      let ary = [];
+      str.trim().split("\n").forEach(line => {
+           line = line.trim();
+           if(line.startsWith("#") || line.length == 0) {
+             // do nothing; skip
+           } else {
+             values = line.split(/[ \t]+/);
+             ary.push(values);
+           }
+         });
+      return ary;
+    }
+
+    class Pixelart {
+      constructor(pixels, options) {
+        this.pixels = pixels;
+
+        this.colors = options.colors  || { '@': '#000000' }
+        this.offset = options.offset  || [0,0];
+
+        this.width  = pixels[0].length; // note: assume all rows the same for now
+        this.height = pixels.length;
+
+        console.log(`  width x height: ${this.width} x ${this.height}, offset: ${this.offset}`);
+       }
+
+      static parse(str, options) {
+        var pixels = parseAscii(str);
+        return new Pixelart(pixels, options);
+      }
+
+      draw(ctx, zoom=1) {
+        this.pixels.forEach((row, y) => {
+          row.forEach((pixel, x) => {
+            if (pixel != '.') {  // auto-skip transparent for now - why? why not?
+              ctx.fillStyle = this.colors[pixel];
+              ctx.fillRect(x*zoom+this.offset[0]*zoom, y*zoom+this.offset[1]*zoom, zoom, zoom);
+            }
+          });
+        });
+      }
+    }
+
+    function drawPunk(q, designs, zoom=1) {
+      // convenience helper / hack; lets you pass in id of canvas element
+      //   other assume canvas element passed in (use as is)
+      let canvas =  (typeof q === 'string') ?  document.querySelector(q) : q;
+
+      // note: use width/height from first design
+      canvas.width  = designs[0].width*zoom;
+      canvas.height = designs[0].height*zoom;
+
+      console.log(` canvas width x height: ${canvas.width} x ${canvas.height}`);
+      let ctx = canvas.getContext('2d');
+      for(let design of designs) {
+        design.draw(ctx, zoom);
+      }
+  }
+  </script>
+  <script type="text/javascript" src="./designs.js"></script>
+</head>
+<body>
+  <canvas id='punkx20'></canvas>
+  <br />
+  <script>
+    const face_designs = [human_light, human_darker, alien, ape_alien, zombie, ape_zombie, demon];
+    const hair_designs = [cap, knittedcap, headband];
+    const eyes_designs = [lasereyes, lasereyes_light];
+
+    function pickItem(ary, idx) {
+      if (idx >= ary.length || idx < 0) {
+        return ary[0];
+      }
+
+      return ary[idx];
+    }
+
+    function generatePunkDesign(dna) {
+      const seq = dna.split(";");
+      const face_idx = seq[0];
+      const hair_idx = seq[1];
+      const eyes_idx = seq[2];
+      
+      let design = [];
+      let face = pickItem(face_designs, face_idx);
+      design.push(face);
+
+      if (hair_idx != -1) { // make it a 80 percentage change
+        let hair = (face == demon) ?  headband : pickItem(hair_designs, hair_idx);
+        design.push(hair);
+      }
+
+      if(eyes_idx != -1) {  // make it a 25 percentage change
+        let eyes = pickItem(eyes_designs, eyes_idx);
+        design.push(eyes);
+      }
+
+      return design;
+    }
+
+    function drawAPunk() {
+      const design = generatePunkDesign("0;1;-1");
+      console.log(design);
+      drawPunk('#punkx20', design, 20);
+    }
+
+    drawAPunk();
+  </script>
+</body>
+
+
+

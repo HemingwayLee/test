@@ -1,0 +1,136 @@
+
+<head>
+  <script>    
+    function parseAscii( str ) {
+      let ary = [];
+      str.trim().split( "\n" ).forEach( line => {
+           line = line.trim();
+           if( line.startsWith( "#" ) || line.length == 0 ) {
+             // do nothing; skip
+           } else {
+             values = line.split( /[ \t]+/ );
+             ary.push( values );
+           }
+         } );
+      return ary;
+    }
+
+    class Pixelart {
+      constructor( pixels, options ) {
+        this.pixels = pixels;
+
+        this.colors = options.colors  || { '@': '#000000' }
+        this.offset = options.offset  || [0,0];
+
+        this.width  = pixels[0].length; // note: assume all rows the same for now
+        this.height = pixels.length;
+
+        console.log( `  width x height: ${this.width} x ${this.height}, offset: ${this.offset}` );
+       }
+
+      static parse( str, options ) {
+        var pixels = parseAscii( str );
+        return new Pixelart( pixels, options );
+      }
+
+      draw( ctx, zoom=1 ) {
+         this.pixels.forEach( (row, y) => {
+                   row.forEach( (pixel, x) => {
+
+            if( pixel != '.' ) {  // auto-skip transparent for now - why? why not?
+              ctx.fillStyle = this.colors[pixel];
+              ctx.fillRect( x*zoom+this.offset[0]*zoom,
+                            y*zoom+this.offset[1]*zoom, zoom, zoom );
+            }
+           });
+         });
+      }
+    }
+
+
+    function drawPunk( q, designs, zoom=1 ) {
+      // convenience helper / hack; lets you pass in id of canvas element
+      //   other assume canvas element passed in (use as is)
+      let canvas =  (typeof q === 'string') ?  document.querySelector( q ) : q;
+
+      // note: use width/height from first design
+      canvas.width  = designs[0].width*zoom;
+      canvas.height = designs[0].height*zoom;
+
+      console.log( ` canvas width x height: ${canvas.width} x ${canvas.height}` );
+      let ctx = canvas.getContext( '2d' );
+      for( let design of designs ) {
+        design.draw( ctx, zoom );
+      }
+  }
+  </script>
+  <script type="text/javascript" src="./designs.js"></script>
+</head>
+<body>
+  <h1>Generate Random Punks on Canvas in JavaScript  from Pixel Art Building Blocks / Designs in Text ("ASCII") Format</h1>
+      <canvas id='punk'></canvas>
+  4x  <canvas id='punkx4'></canvas>
+  8x  <canvas id='punkx8'></canvas>
+  20x <canvas id='punkx20'></canvas>
+
+   <br>
+
+  <button style="font-size: 400%; color: white; background-color: blue;" onclick="drawRandomPunk();">
+    Generate Random Punk - I'm Feeling Lucky
+  </button>
+  <script>
+    const face_designs = [human_light, human_darker, alien, ape_alien, zombie, ape_zombie, demon];
+    const hair_designs = [cap, knittedcap, headband];   // hats & hair-dos
+    const eyes_designs = [lasereyes, lasereyes_light];
+
+
+    function randomInteger( max ) { 
+      return Math.floor( Math.random() * max );
+    }
+
+    function randomPick( ary ) {
+      const max = ary.length;
+      const pick = randomInteger( max );
+      return ary[ pick ];
+    }
+
+
+    function randomPunkDesign() {
+      let design = [];
+
+      let face = randomPick( face_designs );
+      design.push( face );
+
+      if( randomInteger(100) > 20 ) { // make it a 80 percentage change
+        // special case for demon only hairband available
+        let hair = (face == demon) ?  headband : randomPick( hair_designs );
+        design.push( hair );
+      }
+
+      if( randomInteger(100) > 75 ) {  // make it a 25 percentage change
+        let eyes = randomPick( eyes_designs );
+        design.push( eyes );
+      }
+
+      return design;
+    }
+
+    function drawPunkAllSizes( design ) {
+      drawPunk( '#punk',    design );
+      drawPunk( '#punkx4',  design, 4 );
+      drawPunk( '#punkx8',  design, 8 );
+      drawPunk( '#punkx20', design, 20 );
+    }
+
+    function drawRandomPunk() {
+      design = randomPunkDesign();
+      drawPunkAllSizes( design );
+    }
+
+    drawRandomPunk();
+    // drawPunkAllSizes( [demon, headband] );
+  </script>
+</body>
+
+
+
