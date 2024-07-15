@@ -1,5 +1,5 @@
 pillow
-pillow-heif
-opencv-python
-numpy
+# pillow-heif
+# opencv-python
+# numpy
 

@@ -1,9 +1,10 @@
 from PIL import Image
 import os
 
-# folder_path = "/Users/rosemary/Downloads/"
+folder_path = "/Users/rosemary/Downloads/"
 
-folder_path = "/Users/rosemary/Desktop/"
+# folder_path = "/Users/rosemary/Desktop/"
+
 for filename in os.listdir(folder_path):
   if filename.endswith(".png"):
     input_filepath = os.path.join(folder_path, filename)
