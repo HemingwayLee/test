@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <!-- data source -->
+    <!-- https://today.line.me/tw/v2/article/9m27xEx -->
+    <!-- https://www.ctimes.com.tw/DispArt/tw/%E9%A1%9E%E6%AF%94%E6%99%B6%E7%89%87/2208291956B6.shtml -->
+    <!-- https://www.meti.go.jp/policy/mono_info_service/joho/conference/semicon_digital/0001/05.pdf -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['treemap']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['分類', 'Parent', 'Market size', 'country'],
+          ['全部', null, 0, 0],
+          ['邏輯', '全部', 2100000, 0],
+          ['記憶體', '全部', 1800000, 0],
+          ['其他 (離散, 類比, 功率半導體, 圖像傳感器)', '全部', 1500000, 0],
+          ['設計支援', '全部', 10000, 0],
+          ['設備', '全部', 900000, 0],
+          ['材料', '全部', 600000, 0],
+          // ['DRAM', '記憶體', 52, 31],
+          // ['NAND', '記憶體', 24, 12],
+          // ['Canada',    'America',16,-23],
+          // ['France',    'Europe', 42,-11],
+          // ['Germany',   'Europe', 31,-2],
+          // ['Sweden',    'Europe', 22,-13],
+          // ['Italy',     'Europe', 17,4],
+          // ['UK',        'Europe', 21,-5],
+          // ['China',     'Asia',   36,4],
+          // ['Japan',     'Asia',   20,-12],
+          // ['India',     'Asia',   40,63],
+          // ['Laos',      'Asia',   4, 34],
+          // ['Mongolia',  'Asia',   1, -5],
+          // ['Israel',    'Asia',   12,24],
+          // ['Iran',      'Asia',   18,13],
+          // ['Pakistan',  'Asia',   11,-52],
+          // ['Egypt',     'Africa', 21,0],
+          // ['S. Africa', 'Africa', 30,43],
+          // ['Sudan',     'Africa', 12,2],
+          // ['Congo',     'Africa', 10,12],
+          // ['Zaire',     'Africa', 8, 10]
+        ]);
+
+        tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
+
+        tree.draw(data, {
+          minColor: '#f00',
+          midColor: '#ddd',
+          maxColor: '#0d0',
+          headerHeight: 15,
+          fontColor: 'black',
+          showScale: true
+        });
+
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 1200px; height: 600px;"></div>
+  </body>
+</html>
