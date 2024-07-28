@@ -1,0 +1,38 @@
+
+
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="chart_div"></div>
+<script>
+google.charts.load('current', {'packages':['treemap']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+                ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'],
+                ['Global', null, 0, 0],
+                ['America', 'Global', 0, 0],
+                ['Europe', 'Global', 30, 0],
+                ['Asia', 'Global', 10, 0],
+                ['Australia', 'Global', 40, 0],
+                ['Africa', 'Global', 30, 0],
+                [{ v: 'USA', f: 'United States of America' }, 'America', 20, 0],
+                ['Mexico', 'America', 24, 12],
+                ['Canada', 'America', 16, -23],
+                ['Ontario', 'Canada', 12, -9],
+                ['Alberta', 'Canada', 24, 13],
+                ['UK', 'Europe', 21, -5],
+                [{ v: '123', f: 'London' }, 'UK', 21, -5],
+                [{ v: '456', f: 'London' }, 'Ontario', 21, -5],
+                ['Ohio', 'USA', 12, 3],
+                ['Rhode Island', 'USA', 24, 4]
+    ]);
+    tree = new 
+    google.visualization.TreeMap(document.getElementById('chart_div'));
+    tree.draw(data, {
+                    minColor: '#f00',
+                    midColor: '#ddd',
+                    maxColor: '#0d0',
+                    headerHeight: 15,
+                    fontColor: 'black'
+    });
+    }
+</script>
