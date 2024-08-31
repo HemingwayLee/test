@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-folder_path = "/Users/rosemary/Downloads/"
+folder_path = "/Users/rosemary/Downloads"
 
 # folder_path = "/Users/rosemary/Desktop/"
 
