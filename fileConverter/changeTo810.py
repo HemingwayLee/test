@@ -30,6 +30,6 @@ def resize_images_in_folder(folder_path, target_width=810):
                 print(f"Error processing {filename}: {e}")
 
 # Example usage:
-folder_path = "/Users/rosemary/Desktop/yama/"  # Replace with the actual path
+folder_path = "/Users/rosemary/Desktop/newnewnew/"  # Replace with the actual path
 resize_images_in_folder(folder_path)
 
