@@ -1,3 +1,4 @@
+import argparse
 import os
 from PIL import Image
 
@@ -29,7 +30,17 @@ def resize_images_in_folder(folder_path, target_width=810):
             except Exception as e:
                 print(f"Error processing {filename}: {e}")
 
-# Example usage:
-folder_path = "/Users/rosemary/Desktop/newnewnew/"  # Replace with the actual path
-resize_images_in_folder(folder_path)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="A script to change height with path as arguments")
+    parser.add_argument("--path", "-p", help="the folder path contains images")    
+    args = parser.parse_args()
+
+    # Example usage:
+    if args.path:
+        resize_images_in_folder(args.path)
+    else:
+        print("input your path...")
+
+
 
