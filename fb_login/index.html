@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facebook Login Demo</title>
+</head>
+<body>
+  <h1>Facebook Login Demo</h1>
+  <button onclick="loginWithFacebook()">Login with Facebook</button>
+
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '1378759069893811', // Replace with your Facebook App ID
+        cookie: true,
+        xfbml: true,
+        version: 'v23.0'
+      });
+
+      FB.AppEvents.logPageView();
+    };
+
+    function loginWithFacebook() {
+      FB.login(function (response) {
+        if (response.authResponse) {
+          console.log('Welcome! Fetching your info…');
+          FB.api('/me', function (profile) {
+            console.log('Logged in as: ' + profile.name);
+            alert('Hello, ' + profile.name + '!');
+          });
+        } else {
+          console.log('User cancelled login or did not authorize.');
+        }
+      }, { scope: 'email' });
+    }
+  </script>
+</body>
+</html>
+
+
