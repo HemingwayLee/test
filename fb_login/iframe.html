@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Two-Part Page with Toggle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex; /* Use flexbox for layout */
+            height: 100vh; /* Make body fill viewport height */
+            overflow: hidden; /* Prevent body scroll, content within parts can scroll */
+        }
+
+        #left-panel {
+            width: 0; /* Starts hidden */
+            min-width: 0; /* Allow shrinking to 0 */
+            transition: width 0.3s ease-in-out; /* Smooth transition for width */
+            overflow: hidden; /* Hide content when panel is narrow */
+            background-color: #f0f2f5; /* Light background for the iframe area */
+            border-right: 1px solid #ccc;
+            display: flex; /* Use flex for iframe to fill space */
+            flex-direction: column;
+        }
+
+        #left-panel.show {
+            width: 350px; /* Adjust this width as needed for the Facebook iframe */
+            min-width: 350px;
+        }
+
+        #fb-iframe {
+            flex-grow: 1; /* Make iframe fill available height */
+            border: none;
+            width: 100%;
+        }
+
+        #right-panel {
+            flex-grow: 1; /* Right panel takes remaining space */
+            padding: 20px;
+            overflow-y: auto; /* Allow scrolling for content on the right */
+            background-color: #ffffff;
+        }
+
+        #toggle-button {
+            position: fixed; /* Fixed position for the button */
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000; /* Ensure button is on top */
+        }
+
+        #toggle-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles for the button to control the left panel content */
+        .left-panel-controls {
+            padding: 10px;
+            text-align: center;
+            background-color: #e9ebee;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="toggle-button" onclick="toggleLeftPanel()">Show Facebook</button>
+
+    <div id="left-panel">
+        <div class="left-panel-controls">
+            <h3>Facebook Feed (Limited)</h3>
+            <p>You may need to be logged into Facebook in your browser for some content to display fully.</p>
+        </div>
+        <iframe id="local-iframe" src="right_content.html" title="Local Iframe Content">
+        </iframe>
+    </div>
+
+    <div id="right-panel">
+        <h2>Welcome to the Right Side!</h2>
+        <p>This is the main content area of your webpage. You can put any HTML content, text, images, or forms here.</p>
+        <p>The left panel contains an iframe. Note that modern websites, especially large platforms like Facebook, often use security headers (like `X-Frame-Options: SAMEORIGIN` or `DENY`) to prevent their content from being embedded in iframes on other domains. This is for security reasons (e.g., clickjacking prevention).</p>
+        <p>Because of these restrictions, **you might not see the full Facebook website load in the iframe.** You might see an error message in your browser's console indicating that the content was blocked. For actual Facebook integration like login or specific feeds, you'd typically use the Facebook SDK and its plugins, not a direct iframe to `facebook.com`.</p>
+        <p>This setup primarily demonstrates the responsive two-panel layout and the toggle functionality.</p>
+        <hr>
+        <h3>More Content for Scrolling</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus auctor iaculis. Mauris vel nisl at sapien malesuada arcu.</p>
+        <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Ut pharetra nulla vitae varius.</p>
+        <p>Suspendisse potenti. In hac habitasse platea dictumst. Curabitur vel lectus. Duis vitae ante. Ut quis enim. Nulla cursus interdum magna. Suspendisse pulvinar.</p>
+        <p>Mauris vel nisl at sapien malesuada arcu. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus auctor iaculis. Mauris vel nisl at sapien malesuada arcu. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus auctor iaculis.</p>
+    </div>
+
+    <script>
+        const leftPanel = document.getElementById('left-panel');
+        const toggleButton = document.getElementById('toggle-button');
+        let isLeftPanelVisible = false;
+
+        function toggleLeftPanel() {
+            isLeftPanelVisible = !isLeftPanelVisible; // Toggle the state
+            if (isLeftPanelVisible) {
+                leftPanel.classList.add('show');
+                toggleButton.textContent = 'Hide Facebook';
+            } else {
+                leftPanel.classList.remove('show');
+                toggleButton.textContent = 'Show Facebook';
+            }
+        }
+    </script>
+
+</body>
+</html>
