@@ -51,3 +51,7 @@ https://jlptstudy.net/
 # page
 77c9Ws1u7nRva6efUsdW2n
 
+# Prompt
+```
+Woman (ethnicity:East Asian, age:20-30, detailed clothing:1.2, accessories: baseball cap (blue), mask (white), facial features:1.2, expression:neutral, body type:athletic, pose:standing) in black crop top and shorts, positioned centered, facing forward, looking directly at camera, standing on gravel surface, amidst gray tiled wall, (background:gray tiled wall), (environment: urban setting), (lighting: natural light, daytime).  Shorts feature white stripes.  (shoes:light gray sneakers), (detailed skin texture:1.1), photorealistic style, high detail,  casual attire,  straight-on perspective,  simple composition, medium lighting, neutral color palette, clear image, realistic rendering.
+```
