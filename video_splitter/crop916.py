@@ -1,3 +1,6 @@
+# Don't use this, it is not working...
+
+import argparse
 import subprocess
 from moviepy.editor import VideoFileClip
 
@@ -45,11 +48,14 @@ def crop_16_9_to_9_16(input_path, output_path):
 
 # --- Example Usage ---
 if __name__ == "__main__":
-    input_video = "my_16_9_video.mp4"  # Replace with your video file path
+    parser = argparse.ArgumentParser(description="Convert a video into 916 parts.")
+    parser.add_argument("--path", "-p", type=str, help="Path to the input MP4 video file.")
+
+    args = parser.parse_args()
     output_video = "my_9_16_video_cropped.mp4"
     
     # NOTE: Ensure 'my_16_9_video.mp4' exists in the same directory.
     # For this example, let's assume it's a 1920x1080 video.
     
-    crop_16_9_to_9_16(input_video, output_video)
+    crop_16_9_to_9_16(args.path, output_video)
 
