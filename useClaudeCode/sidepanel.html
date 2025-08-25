@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side Panel Extension</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Side Panel App</h1>
+    </header>
+    
+    <main>
+      <div class="content">
+        <h2>Welcome to your Side Panel!</h2>
+        <p>This extension opens in the right side of your browser window.</p>
+        
+        <div class="features">
+          <h3>Features:</h3>
+          <ul>
+            <li>Always accessible from the right side</li>
+            <li>Doesn't interfere with your browsing</li>
+            <li>Customizable content area</li>
+          </ul>
+        </div>
+        
+        <div class="actions">
+          <button id="refreshBtn">Refresh Content</button>
+          <button id="settingsBtn">Settings</button>
+        </div>
+        
+        <div class="info">
+          <p id="currentTime"></p>
+          <p id="tabInfo">Current tab info will appear here</p>
+        </div>
+      </div>
+    </main>
+    
+    <footer>
+      <p>Side Panel Extension v1.0</p>
+    </footer>
+  </div>
+  
+  <script src="sidepanel.js"></script>
+</body>
+</html>

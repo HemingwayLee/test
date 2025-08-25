@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Side Panel Extension",
+  "version": "1.0",
+  "description": "A Chrome extension that opens a side panel on the right side of the browser",
+  "permissions": [
+    "sidePanel"
+  ],
+  "action": {
+    "default_title": "Open Side Panel"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon.svg",
+    "32": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  }
+}
