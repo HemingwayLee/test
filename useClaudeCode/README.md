@@ -50,4 +50,5 @@ This extension requires:
 
 ## Note
 - The pip install pillow is failed
+- Uncaught SyntaxError: Identifier 'sidebar' has already been declared
 
