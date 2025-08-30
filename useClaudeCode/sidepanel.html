@@ -14,21 +14,17 @@
     
     <main>
       <div class="content">
-        <h2>Welcome to your Side Panel!</h2>
-        <p>This extension opens in the right side of your browser window.</p>
+        <h2>YouTube URL Manager</h2>
         
-        <div class="features">
-          <h3>Features:</h3>
-          <ul>
-            <li>Always accessible from the right side</li>
-            <li>Doesn't interfere with your browsing</li>
-            <li>Customizable content area</li>
-          </ul>
+        <div class="url-input-section">
+          <input type="text" id="youtubeUrlInput" placeholder="Enter YouTube URL..." class="url-input">
+          <button id="addUrlBtn" class="add-btn">Add URL</button>
         </div>
         
-        <div class="actions">
-          <button id="refreshBtn">Refresh Content</button>
-          <button id="settingsBtn">Settings</button>
+        <div class="url-list-section">
+          <h3>Saved YouTube URLs</h3>
+          <div id="urlList" class="url-list"></div>
+          <div id="pagination" class="pagination"></div>
         </div>
         
         <div class="info">

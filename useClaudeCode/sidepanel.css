@@ -97,6 +97,111 @@ main {
   flex-wrap: wrap;
 }
 
+.url-input-section {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+  align-items: center;
+}
+
+.url-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.url-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.url-list-section {
+  margin: 24px 0;
+}
+
+.url-list-section h3 {
+  color: #333;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.url-list {
+  margin-bottom: 16px;
+}
+
+.url-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+}
+
+.url-item:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(102, 126, 234, 0.4);
+}
+
+.url-text {
+  flex: 1;
+  margin-right: 12px;
+  font-size: 13px;
+  color: #333;
+  word-break: break-all;
+}
+
+.url-text a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.url-text a:hover {
+  text-decoration: underline;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.pagination .page-info {
+  margin: 0 16px;
+  color: #666;
+  font-size: 14px;
+}
+
 button {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -117,6 +222,13 @@ button:hover {
 
 button:active {
   transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
 }
 
 .info {
