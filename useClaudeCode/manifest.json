@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "My Side Panel Extension",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "A Chrome extension that opens a side panel on the right side of the browser",
   "permissions": [
     "sidePanel",

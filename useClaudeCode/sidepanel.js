@@ -15,6 +15,27 @@ document.addEventListener('DOMContentLoaded', function() {
     return youtubeRegex.test(url);
   }
 
+  function extractVideoId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  }
+
+  async function getYouTubeSubtitles(videoId) {
+    return new Promise((resolve, reject) => {
+      chrome.runtime.sendMessage(
+        { action: 'getYouTubeSubtitles', videoId: videoId },
+        (response) => {
+          if (response.success) {
+            resolve(response.subtitles);
+          } else {
+            reject(new Error(response.error));
+          }
+        }
+      );
+    });
+  }
+
   function saveUrlsToStorage(urls) {
     chrome.storage.local.set({ 'youtubeUrls': urls }, function() {
       if (chrome.runtime.lastError) {
@@ -34,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  function addUrl() {
+  async function addUrl() {
     const url = youtubeUrlInput.value.trim();
     
     if (!url) {
@@ -47,20 +68,39 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    if (allUrls.includes(url)) {
+    if (allUrls.some(item => (typeof item === 'string' ? item : item.url) === url)) {
       alert('URL already exists');
       return;
     }
 
-    allUrls.unshift(url);
+    addUrlBtn.disabled = true;
+    addUrlBtn.textContent = 'Getting subtitles...';
+
+    const videoId = extractVideoId(url);
+    let subtitles = null;
+    
+    if (videoId) {
+      subtitles = await getYouTubeSubtitles(videoId);
+    }
+
+    const urlObject = {
+      url: url,
+      subtitles: subtitles,
+      dateAdded: new Date().toISOString()
+    };
+
+    allUrls.unshift(urlObject);
     saveUrlsToStorage(allUrls);
     youtubeUrlInput.value = '';
     currentPage = 1;
     displayUrls();
+
+    addUrlBtn.disabled = false;
+    addUrlBtn.textContent = 'Add URL';
   }
 
   function deleteUrl(url) {
-    allUrls = allUrls.filter(savedUrl => savedUrl !== url);
+    allUrls = allUrls.filter(item => (typeof item === 'string' ? item : item.url) !== url);
     saveUrlsToStorage(allUrls);
     
     const totalPages = Math.ceil(allUrls.length / urlsPerPage);
@@ -79,14 +119,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (urlsToShow.length === 0) {
       urlList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No YouTube URLs saved yet</p>';
     } else {
-      urlList.innerHTML = urlsToShow.map((url, index) => `
-        <div class="url-item">
-          <div class="url-text">
-            <a href="${url}" target="_blank">${url}</a>
+      urlList.innerHTML = urlsToShow.map((item, index) => {
+        const url = typeof item === 'string' ? item : item.url;
+        const subtitles = typeof item === 'object' && item.subtitles ? item.subtitles : null;
+        const dateAdded = typeof item === 'object' && item.dateAdded ? new Date(item.dateAdded).toLocaleDateString() : '';
+        
+        return `
+          <div class="url-item">
+            <div class="url-text">
+              <a href="${url}" target="_blank">${url}</a>
+              ${dateAdded ? `<small style="color: #666; display: block;">Added: ${dateAdded}</small>` : ''}
+              ${subtitles ? `<details style="margin-top: 8px;"><summary style="cursor: pointer; color: #007acc;">Subtitles</summary><div style="max-height: 150px; overflow-y: auto; padding: 8px; background: #f5f5f5; border-radius: 4px; font-size: 12px; margin-top: 4px;">${subtitles}</div></details>` : '<small style="color: #999;">No subtitles available</small>'}
+            </div>
+            <button class="delete-btn" data-url="${url}" data-index="${startIndex + index}">Delete</button>
           </div>
-          <button class="delete-btn" data-url="${url}" data-index="${startIndex + index}">Delete</button>
-        </div>
-      `).join('');
+        `;
+      }).join('');
       
       // Add event listeners to delete buttons
       const deleteButtons = urlList.querySelectorAll('.delete-btn');
