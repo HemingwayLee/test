@@ -1,0 +1,61 @@
+<html>
+<script>
+async function getYouTubeSubtitles(videoUrl, langCode = 'en') {
+    try {
+        console.log("start!!")
+        // Fetch the video page HTML directly
+        const response = await fetch(videoUrl);
+        const html = await response.text();
+
+        console.log("html is")
+        console.log(html)
+
+        // Extract the ytInitialPlayerResponse JSON from the HTML
+        const playerResponseText = html.split('ytInitialPlayerResponse = ')[1].split(';var')[0];
+        const playerResponse = JSON.parse(playerResponseText);
+
+        // Find the correct caption track for the language
+        const captionTracks = playerResponse.captions.playerCaptionsTracklistRenderer.captionTracks;
+        const captionTrack = captionTracks.find(track => track.languageCode === langCode);
+
+        if (!captionTrack) {
+            console.log(`No subtitles found for language code: ${langCode}`);
+            return null;
+        }
+
+        // Fetch the subtitle data from the found URL directly
+        const subsResponse = await fetch(captionTrack.baseUrl);
+        const subsXml = await subsResponse.text();
+
+        console.log("content is ");
+        console.log(subsXml)
+
+        // Parse the XML data
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(subsXml, "text/xml");
+        const textNodes = xmlDoc.getElementsByTagName('text');
+
+        // Extract and format the text content
+        const subtitles = Array.from(textNodes).map(node => ({
+            text: node.textContent,
+            start: parseFloat(node.getAttribute('start'))
+        }));
+
+        return subtitles;
+
+    } catch (error) {
+        console.error("Failed to fetch or parse subtitles:", error);
+        return null;
+    }
+}
+
+// Example usage:
+const videoUrl = "https://www.youtube.com/watch?v=Bg8_h6Bt1VI";
+getYouTubeSubtitles(videoUrl, 'zh-TW').then(subs => {
+    if (subs) {
+        console.log(subs);
+        // You can now display these subtitles on your page
+    }
+});
+</script>
+</html>
