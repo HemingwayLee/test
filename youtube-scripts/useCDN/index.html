@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube Caption Scraper Example</title>
+</head>
+<body>
+    <h1>YouTube Subtitles</h1>
+    <pre id="subtitles-output"></pre>
+
+    <script src="https://cdn.jsdelivr.net/npm/youtube-captions-scraper@2.0.0/dist/index.min.js"></script>
+
+    <script>
+        const videoID = 'Bg8_h6Bt1VI'; // Replace with any YouTube video ID
+        const langCode = 'zh-TW'; // English subtitles
+
+        // Get the subtitles using the library
+        getSubtitles({
+            videoID: videoID,
+            lang: langCode
+        })
+        .then(captions => {
+            const outputElement = document.getElementById('subtitles-output');
+            
+            // Format the captions for display
+            const formattedCaptions = captions.map(caption => {
+                return `[${caption.start}] ${caption.text}`;
+            }).join('\n');
+            
+            outputElement.textContent = formattedCaptions;
+        })
+        .catch(error => {
+            console.error("Error fetching subtitles:", error);
+        });
+    </script>
+
+</body>
+</html>
