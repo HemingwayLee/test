@@ -7,173 +7,74 @@ chrome.runtime.onInstalled.addListener(() => {
   console.log('Side Panel Extension installed');
 });
 
-// YouTube transcript extraction functions using improved methods
-async function extractVideoId(url) {
-  const videoIdRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-  const match = url.match(videoIdRegex);
-  return match ? match[1] : null;
+// Local server subtitle fetching functions
+async function getActiveServer() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get(['configuredServers'], function(result) {
+      if (chrome.runtime.lastError) {
+        console.error('Error loading servers:', chrome.runtime.lastError);
+        resolve(null);
+        return;
+      }
+      const servers = result.configuredServers || [];
+      const activeServer = servers.find(server => server.active);
+      resolve(activeServer);
+    });
+  });
 }
 
-async function getYouTubeVideoPage(videoId) {
+async function getYouTubeSubtitlesFromLocalServer(videoId, language = 'en') {
   try {
-    const response = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
+    console.log(`Fetching subtitles for video ID: ${videoId} with language: ${language}`);
+    
+    const activeServer = await getActiveServer();
+    if (!activeServer) {
+      throw new Error('No active server configured. Please configure a local server in the Server Config tab.');
+    }
+
+    const serverUrl = activeServer.url.replace(/\/$/, '');
+    const apiUrl = `${serverUrl}/cc/get/?video_id=${videoId}&language=${language}`;
+    
+    console.log(`Making request to: ${apiUrl}`);
+    
+    const response = await fetch(apiUrl, {
+      method: 'GET',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'Content-Type': 'application/json',
       }
     });
     
     if (!response.ok) {
-      throw new Error(`Failed to fetch video page: ${response.status}`);
+      throw new Error(`Server returned ${response.status}: ${response.statusText}`);
     }
     
-    return await response.text();
+    const data = await response.json();
+    
+    if (data.error) {
+      throw new Error(`Server error: ${data.error}`);
+    }
+    
+    if (!data.transcript || !data.transcript.snippets) {
+      console.log('No transcript snippets found for this video and language');
+      return null;
+    }
+    
+    // Loop through json["transcript"]["snippets"] array and get "text" elements
+    const textArray = data.transcript.snippets.map(snippet => snippet.text);
+    
+    console.log('Successfully fetched subtitles from local server');
+    return textArray;
+    
   } catch (error) {
-    console.error('Error fetching video page:', error);
+    console.error('Error fetching subtitles from local server:', error);
     throw error;
-  }
-}
-
-async function extractCaptionTracks(html) {
-  try {
-    // Extract ytInitialPlayerResponse from the page - try multiple patterns
-    let playerResponseMatch = html.match(/var ytInitialPlayerResponse = (\{.*?\});/);
-    if (!playerResponseMatch) {
-      playerResponseMatch = html.match(/"ytInitialPlayerResponse"\s*:\s*(\{.*?\})(?=\s*[,}])/);
-    }
-    if (!playerResponseMatch) {
-      playerResponseMatch = html.match(/ytInitialPlayerResponse"?\s*[=:]\s*(\{.*?\})(?=[,;}])/);
-    }
-    if (!playerResponseMatch) {
-      console.log('Could not find ytInitialPlayerResponse');
-      return [];
-    }
-
-    const playerResponse = JSON.parse(playerResponseMatch[1]);
-    
-    // Navigate to captions data
-    const captions = playerResponse?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
-    
-    if (!captions || captions.length === 0) {
-      console.log('No captions found in player response');
-      return [];
-    }
-
-    return captions.map(caption => ({
-      languageCode: caption.languageCode,
-      name: caption.name?.simpleText || caption.languageCode,
-      url: caption.baseUrl,
-      isAutomatic: caption.kind === 'asr'
-    }));
-  } catch (error) {
-    console.error('Error extracting caption tracks:', error);
-    return [];
-  }
-}
-
-async function fetchTranscriptFromUrl(url) {
-  try {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch transcript: ${response.status}`);
-    }
-    
-    const xmlText = await response.text();
-
-    console.log("the text is ...")
-    console.log(xmlText)
-    
-    // Parse XML to extract text content - handle CDATA and HTML entities
-    const textMatches = xmlText.match(/<text[^>]*>.*?<\/text>/gs) || [];
-    
-    if (textMatches.length === 0) {
-      console.log('No text content found in transcript XML');
-      return null;
-    }
-    
-    const transcriptText = textMatches
-      .map(match => {
-        // Extract content between <text> tags, handling CDATA and nested content
-        const textContent = match.match(/<text[^>]*>(.*?)<\/text>/s);
-        if (!textContent) return '';
-        
-        let text = textContent[1];
-        
-        // Handle CDATA sections
-        text = text.replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1');
-        
-        // Remove any nested XML tags
-        text = text.replace(/<[^>]+>/g, '');
-        
-        return text;
-      })
-      .filter(text => text.trim().length > 0)
-      .join(' ')
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-      .replace(/&#x27;/g, "'")
-      .replace(/\s+/g, ' ')
-      .trim();
-    
-    return transcriptText;
-  } catch (error) {
-    console.error('Error fetching transcript from URL:', error);
-    return null;
-  }
-}
-
-async function getYouTubeSubtitles(videoId) {
-  try {
-    console.log(`Fetching subtitles for video ID: ${videoId}`);
-    
-    // Get the video page HTML
-    const html = await getYouTubeVideoPage(videoId);
-    
-    // Extract caption tracks from the HTML
-    const captionTracks = await extractCaptionTracks(html);
-    
-    if (captionTracks.length === 0) {
-      console.log('No caption tracks found for this video');
-      return null;
-    }
-    
-    console.log(`Found ${captionTracks.length} caption tracks:`, 
-      captionTracks.map(track => `${track.name} (${track.languageCode})`).join(', '));
-    
-    // Prefer manual captions over automatic ones
-    const manualCaptions = captionTracks.filter(track => !track.isAutomatic);
-    const selectedTrack = manualCaptions.length > 0 ? manualCaptions[0] : captionTracks[0];
-    
-    console.log(`Using caption track: ${selectedTrack.name} (${selectedTrack.languageCode})`);
-    
-    // Fetch the transcript
-    const transcript = await fetchTranscriptFromUrl(selectedTrack.url);
-    
-    if (transcript) {
-      console.log('Successfully extracted transcript');
-      return transcript;
-    } else {
-      console.log('Failed to extract transcript content');
-      return null;
-    }
-    
-  } catch (error) {
-    console.error('Error in getYouTubeSubtitles:', error);
-    return null;
   }
 }
 
 // Message handler
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'getYouTubeSubtitles') {
-    getYouTubeSubtitles(request.videoId).then(subtitles => {
+    getYouTubeSubtitlesFromLocalServer(request.videoId, request.language || 'en').then(subtitles => {
       sendResponse({ success: true, subtitles: subtitles });
     }).catch(error => {
       sendResponse({ success: false, error: error.message });

@@ -5,10 +5,149 @@ document.addEventListener('DOMContentLoaded', function() {
   const pagination = document.getElementById('pagination');
   const currentTimeElement = document.getElementById('currentTime');
   const tabInfoElement = document.getElementById('tabInfo');
+  const languageSelect = document.getElementById('languageSelect');
+
+  const serverUrlInput = document.getElementById('serverUrlInput');
+  const addServerBtn = document.getElementById('addServerBtn');
+  const serverList = document.getElementById('serverList');
+  const serverStatus = document.getElementById('serverStatus');
+
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
 
   let currentPage = 1;
   const urlsPerPage = 5;
   let allUrls = [];
+  let configuredServers = [];
+
+  function switchTab(tabName) {
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    tabContents.forEach(content => content.classList.remove('active'));
+    
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    document.getElementById(`${tabName}-tab`).classList.add('active');
+  }
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const tabName = button.getAttribute('data-tab');
+      switchTab(tabName);
+    });
+  });
+
+  function isValidServerUrl(url) {
+    const serverRegex = /^(?:https?:\/\/)?(?:\d{1,3}\.){3}\d{1,3}:\d+$|^(?:https?:\/\/)?localhost:\d+$/;
+    return serverRegex.test(url);
+  }
+
+  function saveServersToStorage(servers) {
+    chrome.storage.local.set({ 'configuredServers': servers }, function() {
+      if (chrome.runtime.lastError) {
+        console.error('Error saving servers:', chrome.runtime.lastError);
+      }
+    });
+  }
+
+  function loadServersFromStorage() {
+    chrome.storage.local.get(['configuredServers'], function(result) {
+      if (chrome.runtime.lastError) {
+        console.error('Error loading servers:', chrome.runtime.lastError);
+        return;
+      }
+      configuredServers = result.configuredServers || [];
+      displayServers();
+    });
+  }
+
+  function addServer() {
+    const serverUrl = serverUrlInput.value.trim();
+    
+    if (!serverUrl) {
+      alert('Please enter a server URL');
+      return;
+    }
+
+    let formattedUrl = serverUrl;
+    if (!formattedUrl.includes('://')) {
+      formattedUrl = 'http://' + formattedUrl;
+    }
+
+    if (!isValidServerUrl(formattedUrl)) {
+      alert('Please enter a valid server URL (e.g., 127.0.0.1:5000 or localhost:5000)');
+      return;
+    }
+
+    if (configuredServers.some(server => server.url === formattedUrl)) {
+      alert('Server already exists');
+      return;
+    }
+
+    const serverObject = {
+      url: formattedUrl,
+      name: formattedUrl.replace(/^https?:\/\//, ''),
+      dateAdded: new Date().toISOString(),
+      active: configuredServers.length === 0
+    };
+
+    configuredServers.push(serverObject);
+    saveServersToStorage(configuredServers);
+    serverUrlInput.value = '';
+    displayServers();
+    updateServerStatus();
+  }
+
+  function deleteServer(url) {
+    configuredServers = configuredServers.filter(server => server.url !== url);
+    if (configuredServers.length > 0 && !configuredServers.some(server => server.active)) {
+      configuredServers[0].active = true;
+    }
+    saveServersToStorage(configuredServers);
+    displayServers();
+    updateServerStatus();
+  }
+
+  function setActiveServer(url) {
+    configuredServers.forEach(server => {
+      server.active = server.url === url;
+    });
+    saveServersToStorage(configuredServers);
+    displayServers();
+    updateServerStatus();
+  }
+
+  function displayServers() {
+    if (configuredServers.length === 0) {
+      serverList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No servers configured</p>';
+    } else {
+      serverList.innerHTML = configuredServers.map(server => {
+        const dateAdded = new Date(server.dateAdded).toLocaleDateString();
+        return `
+          <div class="server-item ${server.active ? 'active' : ''}">
+            <div class="server-info">
+              <div class="server-url">${server.name}</div>
+              <small style="color: #666;">Added: ${dateAdded}</small>
+            </div>
+            <div class="server-actions">
+              ${!server.active ? `<button class="activate-btn" onclick="setActiveServer('${server.url}')">Activate</button>` : '<span class="active-badge">Active</span>'}
+              <button class="delete-btn" onclick="deleteServer('${server.url}')">Delete</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  }
+
+  function updateServerStatus() {
+    const activeServer = configuredServers.find(server => server.active);
+    if (activeServer) {
+      serverStatus.innerHTML = `<strong>Active Server:</strong> ${activeServer.name}`;
+    } else {
+      serverStatus.innerHTML = 'No active server configured';
+    }
+  }
+
+  window.setActiveServer = setActiveServer;
+  window.deleteServer = deleteServer;
 
   function isValidYouTubeUrl(url) {
     const youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/;
@@ -21,10 +160,10 @@ document.addEventListener('DOMContentLoaded', function() {
     return (match && match[2].length === 11) ? match[2] : null;
   }
 
-  async function getYouTubeSubtitles(videoId) {
+  async function getYouTubeSubtitles(videoId, language = 'en') {
     return new Promise((resolve, reject) => {
       chrome.runtime.sendMessage(
-        { action: 'getYouTubeSubtitles', videoId: videoId },
+        { action: 'getYouTubeSubtitles', videoId: videoId, language: language },
         (response) => {
           if (response.success) {
             resolve(response.subtitles);
@@ -77,10 +216,11 @@ document.addEventListener('DOMContentLoaded', function() {
     addUrlBtn.textContent = 'Getting subtitles...';
 
     const videoId = extractVideoId(url);
+    const selectedLanguage = languageSelect.value;
     let subtitles = null;
     
     if (videoId) {
-      subtitles = await getYouTubeSubtitles(videoId);
+      subtitles = await getYouTubeSubtitles(videoId, selectedLanguage);
     }
 
     const urlObject = {
@@ -214,6 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   addUrlBtn.addEventListener('click', addUrl);
+  addServerBtn.addEventListener('click', addServer);
   
   youtubeUrlInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
@@ -221,9 +362,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  serverUrlInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      addServer();
+    }
+  });
+
   loadUrlsFromStorage();
+  loadServersFromStorage();
   updateTime();
   updateTabInfo();
+  updateServerStatus();
 
   setInterval(updateTime, 1000);
   setInterval(updateTabInfo, 5000);
