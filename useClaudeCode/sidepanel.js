@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const serverList = document.getElementById('serverList');
   const serverStatus = document.getElementById('serverStatus');
 
+  const geminiApiKeyInput = document.getElementById('geminiApiKeyInput');
+  const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
+  const clearApiKeyBtn = document.getElementById('clearApiKeyBtn');
+  const apiKeyStatus = document.getElementById('apiKeyStatus');
+
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
 
@@ -149,6 +154,81 @@ document.addEventListener('DOMContentLoaded', function() {
   window.setActiveServer = setActiveServer;
   window.deleteServer = deleteServer;
 
+  function saveGeminiApiKey() {
+    const apiKey = geminiApiKeyInput.value.trim();
+    
+    if (!apiKey) {
+      alert('Please enter an API key');
+      return;
+    }
+
+    if (apiKey.length < 10) {
+      alert('Please enter a valid API key');
+      return;
+    }
+
+    chrome.storage.local.set({ 'geminiApiKey': apiKey }, function() {
+      if (chrome.runtime.lastError) {
+        console.error('Error saving API key:', chrome.runtime.lastError);
+        alert('Error saving API key');
+        return;
+      }
+      
+      geminiApiKeyInput.value = '';
+      updateApiKeyStatus();
+      alert('Gemini API key saved successfully');
+    });
+  }
+
+  function clearGeminiApiKey() {
+    if (confirm('Are you sure you want to clear the API key?')) {
+      chrome.storage.local.remove(['geminiApiKey'], function() {
+        if (chrome.runtime.lastError) {
+          console.error('Error clearing API key:', chrome.runtime.lastError);
+          return;
+        }
+        updateApiKeyStatus();
+        alert('API key cleared successfully');
+      });
+    }
+  }
+
+  function loadGeminiApiKey() {
+    chrome.storage.local.get(['geminiApiKey'], function(result) {
+      if (chrome.runtime.lastError) {
+        console.error('Error loading API key:', chrome.runtime.lastError);
+        return;
+      }
+      updateApiKeyStatus(result.geminiApiKey);
+    });
+  }
+
+  function updateApiKeyStatus(apiKey = null) {
+    if (apiKey === null) {
+      chrome.storage.local.get(['geminiApiKey'], function(result) {
+        if (chrome.runtime.lastError) {
+          console.error('Error checking API key:', chrome.runtime.lastError);
+          return;
+        }
+        displayApiKeyStatus(result.geminiApiKey);
+      });
+    } else {
+      displayApiKeyStatus(apiKey);
+    }
+  }
+
+  function displayApiKeyStatus(apiKey) {
+    if (apiKey) {
+      const maskedKey = apiKey.substring(0, 8) + '...' + apiKey.substring(apiKey.length - 4);
+      apiKeyStatus.innerHTML = `<span style="color: #4CAF50;">✓ API key configured: ${maskedKey}</span>`;
+    } else {
+      apiKeyStatus.innerHTML = '<span style="color: #f44336;">No API key configured</span>';
+    }
+  }
+
+
+
+
   function isValidYouTubeUrl(url) {
     const youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/;
     return youtubeRegex.test(url);
@@ -207,8 +287,19 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
+    // Ensure URLs are loaded from storage before checking duplicates
+    await new Promise((resolve) => {
+      chrome.storage.local.get(['youtubeUrls'], function(result) {
+        if (!chrome.runtime.lastError) {
+          allUrls = result.youtubeUrls || [];
+        }
+        resolve();
+      });
+    });
+
     if (allUrls.some(item => (typeof item === 'string' ? item : item.url) === url)) {
       alert('URL already exists');
+      displayUrls(); // Display the loaded URLs
       return;
     }
 
@@ -271,7 +362,9 @@ document.addEventListener('DOMContentLoaded', function() {
               ${dateAdded ? `<small style="color: #666; display: block;">Added: ${dateAdded}</small>` : ''}
               ${subtitles ? `<details style="margin-top: 8px;"><summary style="cursor: pointer; color: #007acc;">Subtitles</summary><div style="max-height: 150px; overflow-y: auto; padding: 8px; background: #f5f5f5; border-radius: 4px; font-size: 12px; margin-top: 4px;">${subtitles}</div></details>` : '<small style="color: #999;">No subtitles available</small>'}
             </div>
-            <button class="delete-btn" data-url="${url}" data-index="${startIndex + index}">Delete</button>
+            <div class="button-group">
+              <button class="delete-btn" data-url="${url}" data-index="${startIndex + index}">Delete</button>
+            </div>
           </div>
         `;
       }).join('');
@@ -355,6 +448,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   addUrlBtn.addEventListener('click', addUrl);
   addServerBtn.addEventListener('click', addServer);
+  saveApiKeyBtn.addEventListener('click', saveGeminiApiKey);
+  clearApiKeyBtn.addEventListener('click', clearGeminiApiKey);
   
   youtubeUrlInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
@@ -368,8 +463,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  geminiApiKeyInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      saveGeminiApiKey();
+    }
+  });
+
   loadUrlsFromStorage();
   loadServersFromStorage();
+  loadGeminiApiKey();
   updateTime();
   updateTabInfo();
   updateServerStatus();

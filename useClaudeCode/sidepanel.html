@@ -13,8 +13,9 @@
     </header>
     
     <nav class="tabs">
-      <button class="tab-btn active" data-tab="current-page">Current Page</button>
+      <button class="tab-btn active" data-tab="current-page">Saved Videos</button>
       <button class="tab-btn" data-tab="server-config">Server Config</button>
+      <button class="tab-btn" data-tab="gemini-config">Gemini API</button>
     </nav>
     
     <main>
@@ -68,6 +69,31 @@
           
           <div class="server-status">
             <p id="serverStatus">Server status will appear here</p>
+          </div>
+        </div>
+      </div>
+      
+      <div id="gemini-config-tab" class="tab-content">
+        <div class="content">
+          <h2>Gemini API Configuration</h2>
+          
+          <div class="gemini-input-section">
+            <input type="password" id="geminiApiKeyInput" placeholder="Enter Gemini API Key..." class="gemini-input">
+            <button id="saveApiKeyBtn" class="add-btn">Save API Key</button>
+            <button id="clearApiKeyBtn" class="clear-btn">Clear</button>
+          </div>
+          
+          <div class="gemini-status-section">
+            <h3>API Key Status</h3>
+            <div id="geminiStatus" class="gemini-status">
+              <p id="apiKeyStatus">No API key configured</p>
+            </div>
+          </div>
+          
+          <div class="gemini-info">
+            <h3>Instructions</h3>
+            <p>Get your Gemini API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></p>
+            <p>Your API key will be stored securely in local storage.</p>
           </div>
         </div>
       </div>
