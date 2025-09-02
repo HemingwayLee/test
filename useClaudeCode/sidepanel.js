@@ -342,6 +342,20 @@ document.addEventListener('DOMContentLoaded', function() {
     displayUrls();
   }
 
+  function summarizeUrl(url) {
+    // Find the URL item to get subtitles
+    const urlItem = allUrls.find(item => (typeof item === 'string' ? item : item.url) === url);
+    
+    if (!urlItem || !urlItem.subtitles) {
+      alert('No subtitles available for this video to summarize');
+      return;
+    }
+    
+    // For now, just show an alert with a placeholder message
+    // This function can be extended later to integrate with AI services
+    alert('Summarize feature clicked for: ' + url + '\nSubtitles length: ' + urlItem.subtitles.length + ' characters');
+  }
+
   function displayUrls() {
     const startIndex = (currentPage - 1) * urlsPerPage;
     const endIndex = startIndex + urlsPerPage;
@@ -364,6 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="button-group">
               <button class="delete-btn" data-url="${url}" data-index="${startIndex + index}">Delete</button>
+              <button class="summarize-btn" data-url="${url}" data-index="${startIndex + index}">Summarize</button>
             </div>
           </div>
         `;
@@ -375,6 +390,15 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
           const url = this.getAttribute('data-url');
           deleteUrl(url);
+        });
+      });
+
+      // Add event listeners to summarize buttons
+      const summarizeButtons = urlList.querySelectorAll('.summarize-btn');
+      summarizeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const url = this.getAttribute('data-url');
+          summarizeUrl(url);
         });
       });
     }
