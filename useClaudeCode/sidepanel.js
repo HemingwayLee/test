@@ -153,6 +153,64 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.setActiveServer = setActiveServer;
   window.deleteServer = deleteServer;
+  window.copyUrlToClipboard = copyUrlToClipboard;
+
+  function copyUrlToClipboard(url) {
+    // Try modern clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function() {
+        showCopyFeedback('✓ Copied!', '#4CAF50');
+      }).catch(function(err) {
+        console.error('Clipboard API failed: ', err);
+        // Fallback to legacy method
+        fallbackCopyToClipboard(url);
+      });
+    } else {
+      // Fallback for older browsers or when clipboard API is not available
+      fallbackCopyToClipboard(url);
+    }
+  }
+
+  function fallbackCopyToClipboard(url) {
+    // Create a temporary textarea element
+    const textArea = document.createElement('textarea');
+    textArea.value = url;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        showCopyFeedback('✓ Copied!', '#4CAF50');
+      } else {
+        showCopyFeedback('❌ Copy failed', '#f44336');
+      }
+    } catch (err) {
+      console.error('Fallback copy failed: ', err);
+      showCopyFeedback('❌ Copy failed', '#f44336');
+    } finally {
+      document.body.removeChild(textArea);
+    }
+  }
+
+  function showCopyFeedback(message, color) {
+    // Find the copy button that was clicked
+    const button = document.querySelector('#summary-popup .copy-url-btn');
+    if (button) {
+      const originalText = button.textContent;
+      const originalColor = button.style.background;
+      button.textContent = message;
+      button.style.background = color;
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.style.background = originalColor || '#007acc';
+      }, 2000);
+    }
+  }
 
   function saveGeminiApiKey() {
     const apiKey = geminiApiKeyInput.value.trim();
@@ -408,6 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="popup-body">
             <div class="video-url">
               <strong>Video:</strong> <a href="${videoUrl}" target="_blank">${videoUrl}</a>
+              <button class="copy-url-btn" onclick="copyUrlToClipboard('${videoUrl}')">📋 Copy URL</button>
             </div>
             <div class="summary-text">${summary}</div>
           </div>
@@ -493,6 +552,30 @@ document.addEventListener('DOMContentLoaded', function() {
         margin-bottom: 15px;
         padding-bottom: 15px;
         border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      
+      #summary-popup .copy-url-btn {
+        background: #007acc;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background-color 0.2s;
+        white-space: nowrap;
+      }
+      
+      #summary-popup .copy-url-btn:hover {
+        background: #005a99;
+      }
+      
+      #summary-popup .copy-url-btn:active {
+        background: #004080;
       }
       
       #summary-popup .video-url a {
