@@ -20,10 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
 
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const clearSearchBtn = document.getElementById('clearSearchBtn');
+
   let currentPage = 1;
   const urlsPerPage = 5;
   let allUrls = [];
   let configuredServers = [];
+  let currentSearchKeyword = '';
 
   function switchTab(tabName) {
     tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -636,13 +641,53 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function searchVideos() {
+    const keyword = searchInput.value.trim();
+
+    if (!keyword) {
+      alert('Please enter a search keyword');
+      return;
+    }
+
+    currentSearchKeyword = keyword;
+    currentPage = 1; // Reset to first page when searching
+    displayUrls();
+  }
+
+  function clearSearch() {
+    currentSearchKeyword = '';
+    searchInput.value = '';
+    currentPage = 1;
+    displayUrls();
+  }
+
+  function getFilteredUrls() {
+    if (!currentSearchKeyword) {
+      return allUrls;
+    }
+
+    // Filter URLs by checking if subtitles contain the search keyword (case-insensitive)
+    return allUrls.filter(item => {
+      if (typeof item === 'object' && item.subtitles) {
+        const subtitles = String(item.subtitles);
+        return subtitles.toLowerCase().includes(currentSearchKeyword.toLowerCase());
+      }
+      return false;
+    });
+  }
+
   function displayUrls() {
+    const filteredUrls = getFilteredUrls();
     const startIndex = (currentPage - 1) * urlsPerPage;
     const endIndex = startIndex + urlsPerPage;
-    const urlsToShow = allUrls.slice(startIndex, endIndex);
+    const urlsToShow = filteredUrls.slice(startIndex, endIndex);
 
     if (urlsToShow.length === 0) {
-      urlList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No YouTube URLs saved yet</p>';
+      if (currentSearchKeyword) {
+        urlList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No videos found matching your search keyword</p>';
+      } else {
+        urlList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No YouTube URLs saved yet</p>';
+      }
     } else {
       urlList.innerHTML = urlsToShow.map((item, index) => {
         const url = typeof item === 'string' ? item : item.url;
@@ -687,8 +732,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function displayPagination() {
-    const totalPages = Math.ceil(allUrls.length / urlsPerPage);
-    
+    const filteredUrls = getFilteredUrls();
+    const totalPages = Math.ceil(filteredUrls.length / urlsPerPage);
+
     if (totalPages <= 1) {
       pagination.innerHTML = '';
       return;
@@ -720,7 +766,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function changePage(page) {
-    const totalPages = Math.ceil(allUrls.length / urlsPerPage);
+    const filteredUrls = getFilteredUrls();
+    const totalPages = Math.ceil(filteredUrls.length / urlsPerPage);
     if (page >= 1 && page <= totalPages) {
       currentPage = page;
       displayUrls();
@@ -754,7 +801,9 @@ document.addEventListener('DOMContentLoaded', function() {
   addServerBtn.addEventListener('click', addServer);
   saveApiKeyBtn.addEventListener('click', saveGeminiApiKey);
   clearApiKeyBtn.addEventListener('click', clearGeminiApiKey);
-  
+  searchBtn.addEventListener('click', searchVideos);
+  clearSearchBtn.addEventListener('click', clearSearch);
+
   youtubeUrlInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       addUrl();
@@ -770,6 +819,12 @@ document.addEventListener('DOMContentLoaded', function() {
   geminiApiKeyInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       saveGeminiApiKey();
+    }
+  });
+
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      searchVideos();
     }
   });
 
