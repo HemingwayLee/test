@@ -54,3 +54,5 @@ This extension requires:
 - Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive: script-src none" indicates a conflict between the application's JavaScript code and the Content Security Policy (CSP) set for the web page 
 - Did not know the which lang to download from YT
 - Error fetching available subtitle languages: ReferenceError: DOMParser is not defined
+- When we do the bug fixing, we need to specify what error message we see in which step
+- claude code does not think carefully in some corner cases
