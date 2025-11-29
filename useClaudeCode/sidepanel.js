@@ -466,12 +466,12 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="popup-content">
           <div class="popup-header">
             <h3>Video Summary</h3>
-            <button class="popup-close" onclick="document.getElementById('summary-popup').remove()">&times;</button>
+            <button class="popup-close">&times;</button>
           </div>
           <div class="popup-body">
             <div class="video-url">
               <strong>Video:</strong> <a href="${videoUrl}" target="_blank">${videoUrl}</a>
-              <button class="copy-url-btn" onclick="copyUrlToClipboard('${videoUrl}')">📋 Copy URL</button>
+              <button class="copy-url-btn" data-url="${videoUrl}">📋 Copy URL</button>
             </div>
             <div class="summary-text">${summary}</div>
           </div>
@@ -601,7 +601,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.head.appendChild(style);
     document.body.appendChild(popup);
-    
+
+    // Add event listener for close button
+    const closeButton = popup.querySelector('.popup-close');
+    if (closeButton) {
+      closeButton.addEventListener('click', function() {
+        popup.remove();
+      });
+    }
+
+    // Add event listener for copy button
+    const copyButton = popup.querySelector('.copy-url-btn');
+    if (copyButton) {
+      copyButton.addEventListener('click', function() {
+        const url = this.getAttribute('data-url');
+        copyUrlToClipboard(url);
+      });
+    }
+
     // Close popup when clicking outside
     popup.querySelector('.popup-overlay').addEventListener('click', function(e) {
       if (e.target === this) {
