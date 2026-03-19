@@ -47,3 +47,9 @@ electron-packager . myapp --platform=mas --arch=x64
 ```
 
 
+
+* me
+普通徴収の場合
+特別微 の場合
+![69613](https://github.com/user-attachments/assets/9c39cf66-fd45-416b-ae61-fd4ebb247ab5)
+
