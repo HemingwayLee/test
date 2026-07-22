@@ -49,7 +49,7 @@ python3 manage.py loaddata init_template.json
 https://jlptstudy.net/
 
 # page
-77c9Ws1u7nRva6efUsdW2n
+[interpretation](https://drive.google.com/file/d/1y7FG28w_O27OHBfHfyjjtu5heLVYgEB5/view?usp=sharing)
 
 # Prompt
 ```
